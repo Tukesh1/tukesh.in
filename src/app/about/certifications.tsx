@@ -15,7 +15,7 @@ const certifications: Certification[] = [
     title: "AWS Academy Cloud Foundations",
     date: "2024-09",
     link: "https://www.credly.com/badges/6d28d30a-a8cf-4213-8a8c-d3da867faf1b/public_url",
-    iconImage: "https://images.credly.com/size/340x340/images/73e4a58b-a8ef-41a3-a7db-9183dd269882/image.png"
+    iconImage: "/assets/aws-cloud.png"
   },
 //   {
 //     title: "Python",

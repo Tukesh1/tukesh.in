@@ -4,18 +4,19 @@ import { Briefcase, GraduationCap } from "lucide-react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 const experiences = [
-  {
-    company: "WebSoft solution",
-    role: "Web Developer Intern",
-    duration: "2023 - 2024",
-    location: "Remote",
+   {
+    company: "AfterQuery Experts",
+    role: "Software Engineering Bash/Linux ",
+    duration: "2025 - Present",
+    location: "Freelance, Remote",
     details: [
-      <>Developed and maintained web applications using <strong>React</strong> and <strong>Node.js</strong></>,
-      <>Collaborated with cross-functional teams to deliver high-quality products</>,
-      <>Implemented responsive UI with <strong>Tailwind CSS</strong></>,
-      <>Worked in an <strong>agile</strong> environment and participated in code reviews</>,
+      <>Contributed in <strong> <a href="https://www.tbench.ai/" target="_blank" rel="noopener noreferrer">Terminal Bench</a></strong> benchmarking by creating relevant tasks and solutions</>,
+      <>Designed multi-step command-line development exercises (e.g., debugging, refactoring, data processing, build automation).</>,
+      <>Wrote clear, detailed documentation to describe objectives and requirements.</>,
+      <>Developed deterministic test suites and solutions</>,
+      <>Developed reproducible and isolated tests environments in <strong>using bash scripts</strong></>,
     ],
-    skills: ["React", "Node.js", "Tailwind CSS", "Next.js"],
+    skills: ["Python", "Docker", "Golang", "QA", "Bash", "Linux"],
   },
   {
     company: "Alignerr",
@@ -31,7 +32,19 @@ const experiences = [
     ],
     skills: ["Python", "Docker", "Golang", "Debugging"],
   },
-
+  {
+    company: "WebSoft solution",
+    role: "Web Developer Intern",
+    duration: "2023 - 2024",
+    location: "Remote",
+    details: [
+      <>Developed and maintained web applications using <strong>React</strong> and <strong>Node.js</strong></>,
+      <>Collaborated with cross-functional teams to deliver high-quality products</>,
+      <>Implemented responsive UI with <strong>Tailwind CSS</strong></>,
+      <>Worked in an <strong>agile</strong> environment and participated in code reviews</>,
+    ],
+    skills: ["React", "Node.js", "Tailwind CSS", "Next.js"],
+  },
 ];
 
 const educations = [

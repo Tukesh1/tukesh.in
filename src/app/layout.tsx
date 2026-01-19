@@ -4,6 +4,7 @@ import { cn } from "../lib/utils";
 import { ThemeProvider } from "../components/theme-provider";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
+import { Analytics } from "@vercel/analytics/react";
 
 
 import { TailwindIndicator } from "../components/tailwind-indicator";
@@ -101,6 +102,7 @@ export default function RootLayout({
           </main>
           <TailwindIndicator />
         </ThemeProvider>
+        <Analytics />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-P36W5PCJC2"
           strategy="afterInteractive"

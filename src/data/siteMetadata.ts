@@ -1,7 +1,7 @@
 export const siteMetadata = {
   title: "Tukesh Kumar",
   author: "Tukesh Kumar",
-  siteUrl: "https://tukesh.sbs",
+  siteUrl: "https://tukesh.in",
   socialBanner: "/assets/social-banner.png",
   description:
     "Tukesh Kumar - Frontend Developer & AI Engineer. Creating beautiful, responsive web applications with React and TypeScript, while leveraging AI/ML technologies for innovative solutions.",

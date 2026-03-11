@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://tukesh.sbs/sitemap.xml
+Sitemap: https://tukesh.in/sitemap.xml
 
 # Crawl Delay
 Crawl-delay: 1

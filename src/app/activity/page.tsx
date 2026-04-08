@@ -65,8 +65,9 @@ function formatDay(iso: string) {
   const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
   if (iso === today) return "Today";
   if (iso === yesterday) return "Yesterday";
-  return new Date(iso).toLocaleDateString("en-US", {
-    weekday: "long", month: "short", day: "numeric",
+  // Parse with explicit UTC midnight so the date doesn't shift in non-UTC runtimes.
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
+    weekday: "long", month: "short", day: "numeric", timeZone: "UTC",
   });
 }
 

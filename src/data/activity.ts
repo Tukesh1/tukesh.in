@@ -203,13 +203,17 @@ async function fetchWakaTime(): Promise<WakaResult> {
   const start = new Date();
   start.setDate(end.getDate() - 90);
   const fmt = (d: Date) => d.toISOString().split("T")[0];
-  const auth = `api_key=${encodeURIComponent(apiKey)}`;
+  const basicAuth = Buffer.from(`${apiKey}:`).toString("base64");
+  const wakaHeaders = { Authorization: `Basic ${basicAuth}` };
 
   const summariesUrl =
-    `https://wakatime.com/api/v1/users/current/summaries?start=${fmt(start)}&end=${fmt(end)}&${auth}`;
+    `https://wakatime.com/api/v1/users/current/summaries?start=${fmt(start)}&end=${fmt(end)}`;
 
   try {
-    const summariesRes = await fetch(summariesUrl, { next: { revalidate: 300 } });
+    const summariesRes = await fetch(summariesUrl, {
+      headers: wakaHeaders,
+      next: { revalidate: 300 },
+    });
 
     const days: WTSummary[] = summariesRes.ok ? (await summariesRes.json())?.data ?? [] : [];
 
@@ -223,7 +227,9 @@ async function fetchWakaTime(): Promise<WakaResult> {
         .slice(0, 4)
         .map((l) => ({ name: l.name, percent: Math.round(l.percent) }));
 
-      const sessionTs = new Date(day.range.date + "T18:00:00").getTime();
+      // Use UTC noon so the timestamp is stable across DST and timezone boundaries.
+      const [yr, mo, dy] = day.range.date.split("-").map(Number);
+      const sessionTs = Date.UTC(yr, mo - 1, dy, 12, 0, 0, 0);
       return [
         {
           id: `wt-${day.range.date}`,
@@ -246,9 +252,10 @@ async function fetchWakaTime(): Promise<WakaResult> {
       ];
     });
 
-    // today = last entry in the range (WakaTime returns chronological order)
-    const todayIso = fmt(new Date());
-    const today = days.find((d) => d.range.date === todayIso);
+    // Derive "today" from the last entry WakaTime returned — WakaTime's
+    // range.date is expressed in the account's own timezone, which may differ
+    // from the UTC date produced by new Date().toISOString().
+    const today = days[days.length - 1];
     const codedToday = today?.grand_total.total_seconds ?? 0;
 
     // this week = sum of the last 7 days

@@ -62,6 +62,8 @@ export function WorkExperience() {
             <button
               type="button"
               onClick={() => setOpen(isOpen ? null : idx)}
+              aria-expanded={isOpen}
+              aria-controls={`exp-details-${idx}`}
               className="w-full text-left px-4 py-5 grid grid-cols-[auto_1fr_auto] items-start gap-4 transition-colors hover:bg-gray-50 dark:hover:bg-neutral-800/40"
             >
               <div
@@ -105,6 +107,8 @@ export function WorkExperience() {
 
             {/* details */}
             <div
+              id={`exp-details-${idx}`}
+              role="region"
               className={cn(
                 "grid transition-all duration-300 ease-out",
                 isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"

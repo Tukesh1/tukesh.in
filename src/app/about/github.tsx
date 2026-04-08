@@ -1,6 +1,7 @@
+"use client";
 
 import React from "react";
-import GitHubCalendar from "react-github-calendar";
+import dynamic from "next/dynamic";
 
 // Define custom props interface for TypeScript
 interface GitHubCalendarProps {
@@ -19,7 +20,16 @@ interface GitHubCalendarProps {
   endDate?: Date;
 }
 
-const GitHubCalendarTyped = GitHubCalendar as React.ComponentType<GitHubCalendarProps>;
+// react-github-calendar is ~30kB and client-only; load it after hydration
+const GitHubCalendarTyped = dynamic(
+  () => import("react-github-calendar").then((m) => m.default as React.ComponentType<GitHubCalendarProps>),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-[140px] w-full animate-pulse rounded bg-neutral-100 dark:bg-neutral-800/60" />
+    ),
+  }
+);
 
 export function Github() {
   const today = new Date();

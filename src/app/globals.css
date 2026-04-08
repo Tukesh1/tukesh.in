@@ -83,11 +83,6 @@ h4 {
   margin-bottom: 1.25em !important;
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
-  @apply text-neutral-50;
-}
-
 pre::-webkit-scrollbar {
   display: none;
 }

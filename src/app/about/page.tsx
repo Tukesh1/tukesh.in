@@ -3,9 +3,9 @@ import { ToolStack } from "./toolstack";
 import { Github } from "./github";
 import { Skills } from "./skills";
 import { Certifications } from "./certifications";
-import { WorkExperience, Educations } from "./eduex";
+import { WorkExperience } from "./eduex";
 import { Panel, PanelContent, PanelHeader } from "../../components/panel";
-import { FaBriefcase, FaGraduationCap, FaGithub, FaCertificate } from "react-icons/fa";
+import { FaBriefcase, FaGithub, FaCertificate } from "react-icons/fa";
 import { Metadata } from "next";
 import { siteMetadata } from "../../data/siteMetadata";
 
@@ -27,7 +27,7 @@ export default function About() {
     <React.Fragment>
       <section className="py-12">
         <div className="max-w-4xl mx-auto">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+          <div className="max-w-4xl mx-auto mb-12">
             <Panel>
               <PanelHeader>
                 <div className="flex items-center gap-2 hover:text-teal-600 hover:dark:text-teal-400 transition-colors">
@@ -35,19 +35,8 @@ export default function About() {
                   <span className="font-bold uppercase text-xs relative -bottom-px">Experience</span>
                 </div>
               </PanelHeader>
-              <PanelContent>
+              <PanelContent className="p-0">
                 <WorkExperience />
-              </PanelContent>
-            </Panel>
-            <Panel>
-              <PanelHeader>
-                <div className="flex items-center gap-2 hover:text-teal-600 hover:dark:text-teal-400 transition-colors">
-                  <FaGraduationCap className="text-sm" />
-                  <span className="font-bold uppercase text-xs relative -bottom-px">Education</span>
-                </div>
-              </PanelHeader>
-              <PanelContent>
-                <Educations />
               </PanelContent>
             </Panel>
           </div>

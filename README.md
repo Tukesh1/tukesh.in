@@ -2,7 +2,7 @@ A modern, portfolio website which is clean and build with cutting-edge technolog
 
 ![Portfolio Screenshot](./public/assets/overview.png) 
 
-**Visit:** [https://tukesh.sbs](https://tukesh.sbs)
+**Visit:** [https://tukesh.in](https://tukesh.in)
 
 ##  Features
 
@@ -53,10 +53,10 @@ Space Grotesk
 #### *Clone & Install*
 ```bash
 # Clone the repository
-git clone https://github.com/tukesh1/tukesh.sbs.git
+git clone https://github.com/tukesh1/tukesh.in.git
 
 # Navigate to project directory
-cd tukesh.sbs
+cd tukesh.in
 
 # Install dependencies
 npm install
@@ -88,11 +88,11 @@ npm run lint
 Build your Docker image with the following command:
 
 ```bash
-docker build -t tukesh-sbs .
+docker build -t tukesh.in .
 ```
 Run the container and map it to port 3000:
 ```bash
-docker run -p 3000:3000 tukesh-sbs .
+docker run -p 3000:3000 tukesh.in .
 ```
 You can now access this portfolio at http://localhost:3000
 
@@ -121,7 +121,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
 
-*Built with ❤️ by [Tukesh Kumar](https://tukesh.sbs)*
+*Built with ❤️ by [Tukesh Kumar](https://tukesh.in)*
 
 *Frontend Developer & AI Engineer*
 </div>

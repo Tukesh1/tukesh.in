@@ -181,7 +181,7 @@ export default async function ActivityPage() {
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
             A live log of what I&apos;m working on — commits pushed, pull requests, problems
             solved, and quiet coding sessions in VS Code that never made it to GitHub.
-            Auto-fetched from GitHub and WakaTime, refreshed every minute. No manual updates.
+            Auto-fetched from GitHub and WakaTime, synced every minute.
           </p>
         </PanelHeader>
 

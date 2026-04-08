@@ -26,7 +26,10 @@ export const siteMetadata = {
     x: "https://x.com/sarifInsaan",
     linkedinLink: "https://www.linkedin.com/in/tukesh-kumar/",
     githubLink: "https://github.com/tukesh1",
-    
+  },
+  handles: {
+    github: "tukesh1",
+    wakatime: "tukesh1",
   },
   pages: {
     home: {
@@ -40,6 +43,10 @@ export const siteMetadata = {
     projects: {
       title: "Projects ",
       description: "Explore my frontend web applications and AI/ML projects. From interactive UIs to machine learning solutions, see what I've built.",
+    },
+    activity: {
+      title: "Activity",
+      description: "A live log of what I'm shipping — commits, pull requests, problem solves, and VS Code coding sessions. Auto-fetched from GitHub and WakaTime.",
     },
   },
 };

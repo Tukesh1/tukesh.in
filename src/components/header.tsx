@@ -11,6 +11,7 @@ const navItems = {
   "/about": { name: "about" },
   "/projects": { name: "projects" },
   "/post": { name: "post" },
+  "/activity": { name: "activity" },
 };
 
 export function Header() {

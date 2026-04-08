@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about',
     '/projects',
     '/post',
+    '/activity',
     '/resume',
     '/tracode',
   ]

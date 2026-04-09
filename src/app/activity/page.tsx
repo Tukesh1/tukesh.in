@@ -185,10 +185,10 @@ export default async function ActivityPage() {
           </p>
         </PanelHeader>
 
-        {/* Time coded — today & this week */}
+        {/* Time coded — today & Last 7 Days */}
         <div className="grid grid-cols-2 border-b border-gray-200 dark:border-gray-800">
           <Stat label="Today"     value={humanDuration(stats.codedToday)}    hint="time coded" />
-          <Stat label="This week" value={humanDuration(stats.codedThisWeek)} hint="time coded" />
+          <Stat label="Last 7 Days" value={humanDuration(stats.codedThisWeek)} hint="time coded" />
         </div>
 
         <PanelContent className="p-0">

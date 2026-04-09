@@ -5,11 +5,10 @@ import { ThemeProvider } from "../components/theme-provider";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 
-
 import { TailwindIndicator } from "../components/tailwind-indicator";
 import { Space_Grotesk } from "next/font/google";
 import { siteMetadata } from "../data/siteMetadata";
-import Head from "./head";
+import { StructuredData } from "../components/structured-data";
 import Script from "next/script";
 
 const space_grotesk = Space_Grotesk({
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: `${siteMetadata.title} - Frontend Developer & AI Engineer`,
-        type: 'image/png',
+        type: "image/png",
       },
     ],
     locale: "en_US",
@@ -68,9 +67,9 @@ export const metadata: Metadata = {
     canonical: siteMetadata.siteUrl,
   },
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 
@@ -81,7 +80,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Head />
+      <head>
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta name="google-site-verification" content="xkBWbb9OnEAZEfrakVYXOpIcFlAH5qEA66FtywraJfI" />
+        <meta name="dmca-site-verification" content="K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090" />
+        <link rel="preconnect" href="https://opengraph.githubassets.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://opengraph.githubassets.com" />
+        <StructuredData type="person" />
+        <StructuredData type="website" />
+      </head>
       <body
         className={cn(
           "mx-auto min-h-screen max-w-4xl antialiased dark:bg-dark-bg dark:text-gray-100",

@@ -199,25 +199,30 @@ async function fetchWakaTime(): Promise<WakaResult> {
   const empty: WakaResult = { items: [], codedToday: 0, codedThisWeek: 0 };
   const apiKey = process.env.WAKATIME_API_KEY;
   if (!apiKey) return empty;
-  const end = new Date();
-  const start = new Date();
-  start.setDate(end.getDate() - 90);
-  const fmt = (d: Date) => d.toISOString().split("T")[0];
+
   const basicAuth = Buffer.from(`${apiKey}:`).toString("base64");
   const wakaHeaders = { Authorization: `Basic ${basicAuth}` };
-
-  const summariesUrl =
-    `https://wakatime.com/api/v1/users/current/summaries?start=${fmt(start)}&end=${fmt(end)}`;
+  const base = `https://wakatime.com/api/v1/users/current/summaries`;
+  const todayUrl = `${base}?range=Today`;
+  const weekUrl  = `${base}?range=Last%207%20Days`;
 
   try {
-    const summariesRes = await fetch(summariesUrl, {
-      headers: wakaHeaders,
-      next: { revalidate: 300 },
-    });
+    const [todayRes, weekRes] = await Promise.all([
+      fetch(todayUrl, { headers: wakaHeaders, cache: "no-store" }),
+      fetch(weekUrl,  { headers: wakaHeaders, cache: "no-store" }),
+    ]);
 
-    const days: WTSummary[] = summariesRes.ok ? (await summariesRes.json())?.data ?? [] : [];
+    // ── Today (cumulative_total.seconds) ──
+    const todayJson = todayRes.ok ? await todayRes.json() : null;
+    const codedToday: number = todayJson?.cumulative_total?.seconds ?? 0;
 
-    // items — one per day (skipping <1min days)
+    // ── Last 7 Days (cumulative_total.seconds) ──
+    const weekJson = weekRes.ok ? await weekRes.json() : null;
+    const codedThisWeek: number = weekJson?.cumulative_total?.seconds ?? 0;
+
+    // ── Feed items from the weekly summaries (one entry per day) ──
+    const days: WTSummary[] = weekJson?.data ?? [];
+
     const items = days.flatMap<ActivityItem>((day) => {
       if (day.grand_total.total_seconds < 60) return [];
 
@@ -227,7 +232,6 @@ async function fetchWakaTime(): Promise<WakaResult> {
         .slice(0, 4)
         .map((l) => ({ name: l.name, percent: Math.round(l.percent) }));
 
-      // Use UTC noon so the timestamp is stable across DST and timezone boundaries.
       const [yr, mo, dy] = day.range.date.split("-").map(Number);
       const sessionTs = Date.UTC(yr, mo - 1, dy, 12, 0, 0, 0);
       return [
@@ -252,21 +256,12 @@ async function fetchWakaTime(): Promise<WakaResult> {
       ];
     });
 
-    // Derive "today" from the last entry WakaTime returned — WakaTime's
-    // range.date is expressed in the account's own timezone, which may differ
-    // from the UTC date produced by new Date().toISOString().
-    const today = days[days.length - 1];
-    const codedToday = today?.grand_total.total_seconds ?? 0;
-
-    // this week = sum of the last 7 days
-    const last7 = days.slice(-7);
-    const codedThisWeek = last7.reduce((n, d) => n + d.grand_total.total_seconds, 0);
-
     return { items, codedToday, codedThisWeek };
   } catch {
     return empty;
   }
 }
+
 
 /* ===================================================================== */
 /*  Assembly                                                              */

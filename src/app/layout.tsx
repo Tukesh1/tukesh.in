@@ -92,8 +92,6 @@ export default function RootLayout({
         <meta name="dmca-site-verification" content="K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090" />
         <link rel="preconnect" href="https://opengraph.githubassets.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://opengraph.githubassets.com" />
-        <StructuredData type="person" />
-        <StructuredData type="website" />
       </head>
       <body
         className={cn(
@@ -101,6 +99,9 @@ export default function RootLayout({
           space_grotesk.className,
         )}
       >
+        <StructuredData type="person" />
+        <StructuredData type="website" />
+        <StructuredData type="profilePage" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark" // default to dark mode, can be light, dark, system

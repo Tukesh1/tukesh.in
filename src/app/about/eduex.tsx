@@ -6,11 +6,25 @@ import { cn } from "@/lib/utils";
 
 const experiences = [
   {
+    company: "Accenture",
+    role: "Associate Software Developer",
+    duration: "2026 — Present",
+    location: "Gurgaon, India",
+    current: true,
+    details: [
+      <>Developed and maintained web applications using <strong>React</strong> and <strong>Node.js</strong>.</>,
+      <>Collaborated with cross-functional teams to deliver high-quality products.</>,
+      <>Implemented responsive UI with <strong>Bootstrap</strong>.</>,
+      <>Worked in an <strong>agile</strong> environment and participated in code reviews.</>,
+    ],
+    skills: ["React", "Node.js", "Bootstrap", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"],
+  },
+  {
     company: "AfterQuery Experts",
     role: "Software Engineering — Bash/Linux",
-    duration: "2025 — Present",
+    duration: "2025 — 2026",
     location: "Freelance, Remote",
-    current: true,
+    current: false,
     details: [
       <>Contributed to <strong><a href="https://www.tbench.ai/" target="_blank" rel="noopener noreferrer">Terminal Bench</a></strong> benchmarking by creating relevant tasks and solutions.</>,
       <>Designed multi-step command-line development exercises (debugging, refactoring, data processing, build automation).</>,

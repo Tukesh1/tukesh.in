@@ -2,8 +2,8 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { siteMetadata } from "@/data/siteMetadata";
 
-// Define custom props interface for TypeScript
 interface GitHubCalendarProps {
   username: string;
   blockSize?: number;
@@ -22,7 +22,10 @@ interface GitHubCalendarProps {
 
 // react-github-calendar is ~30kB and client-only; load it after hydration
 const GitHubCalendarTyped = dynamic(
-  () => import("react-github-calendar").then((m) => m.default as React.ComponentType<GitHubCalendarProps>),
+  () =>
+    import("react-github-calendar").then(
+      (m) => m.default as React.ComponentType<GitHubCalendarProps>
+    ),
   {
     ssr: false,
     loading: () => (
@@ -37,32 +40,32 @@ export function Github() {
   startDate.setMonth(today.getMonth() - 12);
 
   return (
-    <div id="github" className="">
+    <div id="github">
       <div className="px-3 py-4 border border-neutral-900/10 dark:border-neutral-50/10 hover:border-neutral-900/30 dark:hover:border-neutral-50/30 rounded bg-white dark:bg-dark-bg shadow-md flex flex-col items-center transition-colors duration-700 hover:duration-100">
         <h1 className="text-base font-semibold text-gray-900 dark:text-white mb-4 tracking-tight text-center">
           Days I <span className="text-green-600 dark:text-green-400">Code</span>
         </h1>
         <div className="overflow-x-auto w-full flex justify-center">
           <GitHubCalendarTyped
-            username="tukesh1"
+            username={siteMetadata.handles.github}
             blockSize={10}
             blockMargin={2}
-            color="#239a3b" // Green-600 as the primary color
+            color="#239a3b"
             fontSize={16}
             theme={{
               light: [
-                "#ebedf0", // Inactive: Gray-200
-                "#c6e48b", // Low: Light green
-                "#7bc96f", // Moderate: Medium green
-                "#239a3b", // High: Green-600
-                "#196127", // Very High: Green-800
+                "#ebedf0",
+                "#c6e48b",
+                "#7bc96f",
+                "#239a3b",
+                "#196127",
               ],
               dark: [
-                "#4b5563", // Inactive: Gray-600
-                "#bef264", // Low: Lighter green (lime-300)
-                "#84cc16", // Moderate: Green-500
-                "#52d726", // High: Green-400
-                "#3f9c1f", // Very High: Slightly darker green
+                "#4b5563",
+                "#bef264",
+                "#84cc16",
+                "#52d726",
+                "#3f9c1f",
               ],
             }}
             showTotalCount={true}

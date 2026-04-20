@@ -6,12 +6,33 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
+    --dot-color: rgba(0, 0, 0, 0.08);
   }
 
   .dark {
     --background: 210 6% 12%;
     --foreground: 213 31% 91%;
+    --dot-color: rgba(255, 255, 255, 0.06);
   }
+}
+
+/* Signature dot-grid background — fixed behind content, fades at edges. */
+.bg-dot-grid {
+  background-image: radial-gradient(
+    var(--dot-color) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 35%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 35%,
+    transparent 75%
+  );
 }
 
 .prose .anchor {
@@ -147,6 +168,28 @@ table {
 }
 [data-rehype-pretty-code-title] + pre {
   @apply mt-0 rounded-t-none border-t-0;
+}
+
+/* Subtle page-in animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 420ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
+  }
 }
 
 /* Custom text selection colors */

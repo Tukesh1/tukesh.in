@@ -7,9 +7,11 @@ export const siteMetadata = {
     "Tukesh Kumar - Frontend Developer & AI Engineer. Creating beautiful, responsive web applications with React and TypeScript, while leveraging AI/ML technologies for innovative solutions.",
   keywords: [
     "Tukesh Kumar",
+    "Tukesh",
     "Frontend Developer",
     "AI Engineer",
     "React Developer",
+    "Next.js Developer",
     "TypeScript",
     "JavaScript",
     "Web Development",
@@ -19,7 +21,8 @@ export const siteMetadata = {
     "Python",
     "Data Science",
     "Portfolio",
-    "Tracode"
+    "Open Source",
+    "India",
   ],
   social: {
     email: "tukeshkrraju1011@gmail.com",

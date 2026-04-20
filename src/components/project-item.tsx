@@ -18,7 +18,6 @@ interface Project {
   thumbnail?: string;
   priority?: boolean;
   isExpanded?: boolean;
-  logo?: string;
 }
 
 interface ProjectItemProps {

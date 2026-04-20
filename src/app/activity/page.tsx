@@ -32,6 +32,16 @@ export const metadata: Metadata = {
     title: `${siteMetadata.pages.activity.title} | ${siteMetadata.author}`,
     description: siteMetadata.pages.activity.description,
     url: `${siteMetadata.siteUrl}/activity`,
+    siteName: siteMetadata.title,
+    images: [siteMetadata.socialBanner],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteMetadata.pages.activity.title} | ${siteMetadata.author}`,
+    description: siteMetadata.pages.activity.description,
+    images: [siteMetadata.socialBanner],
+    creator: "@sarifInsaan",
   },
   alternates: { canonical: `${siteMetadata.siteUrl}/activity` },
 };

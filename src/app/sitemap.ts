@@ -1,36 +1,34 @@
-import { MetadataRoute } from 'next'
-import { siteMetadata } from '../data/siteMetadata'
-import { getAllPosts } from '../data/post'
+import type { MetadataRoute } from "next";
+import { siteMetadata } from "../data/siteMetadata";
+import { getAllPosts } from "../data/post";
+
+type Route = { path: string; changeFrequency: "daily" | "weekly" | "monthly" | "yearly"; priority: number };
+
+const ROUTES: Route[] = [
+  { path: "", changeFrequency: "weekly", priority: 1.0 },
+  { path: "/about", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/post", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/activity", changeFrequency: "daily", priority: 0.6 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = siteMetadata.siteUrl
+  const baseUrl = siteMetadata.siteUrl;
+  const now = new Date();
 
-  // Define all your routes
-  const routes = [
-    '',
-    '/about',
-    '/projects',
-    '/post',
-    '/activity',
-    '/resume',
-    '/tracode',
-  ]
+  const staticEntries = ROUTES.map(({ path, changeFrequency, priority }) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: now,
+    changeFrequency,
+    priority,
+  }));
 
-  const sitemap = routes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: route === '' ? 1.0 : 0.8,
-  }))
-
-  // Add blog posts
-  const posts = getAllPosts()
-  const postSitemap = posts.map((post) => ({
+  const postEntries = getAllPosts().map((post) => ({
     url: `${baseUrl}/post/${post.slug}`,
     lastModified: new Date(post.updatedAt),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: "monthly" as const,
     priority: 0.7,
-  }))
+  }));
 
-  return [...sitemap, ...postSitemap]
+  return [...staticEntries, ...postEntries];
 }

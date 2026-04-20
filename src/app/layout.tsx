@@ -6,6 +6,7 @@ import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 
 import { TailwindIndicator } from "../components/tailwind-indicator";
+import { KeyboardShortcuts } from "../components/keyboard-shortcuts";
 import { Space_Grotesk } from "next/font/google";
 import { siteMetadata } from "../data/siteMetadata";
 import { StructuredData } from "../components/structured-data";
@@ -95,8 +96,8 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "mx-auto min-h-screen max-w-4xl antialiased dark:bg-dark-bg dark:text-gray-100",
-          space_grotesk.className,
+          "mx-auto min-h-screen max-w-4xl font-sans antialiased dark:bg-dark-bg dark:text-gray-100",
+          space_grotesk.variable,
         )}
       >
         <StructuredData type="person" />
@@ -108,11 +109,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="mx-4  px-2 md:px-0 lg:mx-auto flex flex-col justify-between min-h-screen">
+          <main className="mx-4 px-2 md:px-0 lg:mx-auto flex flex-col justify-between min-h-screen">
             <Header />
-            {children}
+            <div className="animate-fade-up flex-1 flex flex-col">{children}</div>
             <Footer />
           </main>
+          <KeyboardShortcuts />
           <TailwindIndicator />
         </ThemeProvider>
         <Script

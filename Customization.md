@@ -1,139 +1,175 @@
 # Customization Guide
 
-This guide will help you customize the portfolio to make it your own. Follow the steps below to update site information, add projects, and modify the theme.
+This portfolio is designed so almost every change happens in one folder: **`src/data/`**. You should rarely need to touch component code to personalize it.
 
 ---
 
-## 1. Update Site Information
+## 1. Site metadata
 
-Edit the `src/data/siteMetadata.ts` file to update the basic site information:
+File: [`src/data/siteMetadata.ts`](./src/data/siteMetadata.ts)
 
-```typescript
+```ts
 export const siteMetadata = {
   title: "Your Name",
   author: "Your Name",
   siteUrl: "https://yoursite.com",
-  description: "Your description...",
+  socialBanner: "/assets/social-banner.png", // 1200×630 PNG in public/assets/
+  description: "Short tagline shown in <meta> and OG cards.",
   keywords: ["Portfolio", "Developer", "React", "TypeScript"],
   social: {
-    email: "your-email@example.com",
+    email: "you@example.com",
     x: "https://x.com/your-handle",
     linkedinLink: "https://www.linkedin.com/in/your-profile/",
     githubLink: "https://github.com/your-username",
   },
+  handles: {
+    github: "your-username",       // drives /about GitHub calendar
+    wakatime: "your-wakatime-id",  // drives /activity coding stats
+  },
+  pages: { /* per-page title + description */ },
 };
 ```
 
+Everything that references your name, domain, or social handles reads from here.
+
 ---
 
-## 2. Add Your Projects
+## 2. Projects
 
-Update the `src/data/projects.ts` file to showcase your own projects:
+File: [`src/data/projects.ts`](./src/data/projects.ts)
 
-```typescript
-export const WEB_APPS = [
+```ts
+export const WEB_APPS: Project[] = [
   {
-    title: "Your Project",
+    title: "Project name",
+    category: "web",           // "web" | "ai-ml" | "cli"
     tags: ["React", "TypeScript"],
-    description: "Project description...",
-    thumbnail: "/assets/project/image.jpg",
-    repo: "https://github.com/username/repo",
-    liveDemo: "https://yourproject.com",
+    description: [
+      "Bullet 1.",
+      "Bullet 2.",
+    ],
+    tagline: "One-liner shown on the home page when featured.",
+    thumbnail: "/assets/project/your-image.png",
+    repo: "https://github.com/you/repo",
+    live: "https://your-demo.com", // optional
+    featured: true,                // surface on the homepage
+    period: { start: "10. 2025" }, // omit `end` for ongoing
   },
-  // Add more projects here
 ];
 ```
 
----
-
-## 3. Customize the Theme
-
-Modify the `tailwind.config.js` file to change the color scheme and other design elements:
-
-```javascript
-theme: {
-  extend: {
-    colors: {
-      'dark-bg': '#1D1E20', // Custom dark theme
-      'primary': '#38B2AC', // Primary color
-      'secondary': '#FF5733', // Secondary color
-    },
-    fontFamily: {
-      sans: ['Inter', 'sans-serif'],
-    },
-  },
-}
-```
+- Set `featured: true` on your top 2-3 projects — they appear in the home-page "Cool Stuff I'm Working On" section automatically.
+- The `/projects` page renders everything from `WEB_APPS`, `AI_ML_PROJECTS`, and `CLI_PROJECTS` combined.
+- Thumbnails can be local (`/assets/project/…`) or GitHub's OG endpoint (`https://opengraph.githubassets.com/1/<user>/<repo>`).
 
 ---
 
-## 4. Update the Footer
+## 3. Experience, skills, tools, certifications
 
-Edit the `src/components/footer.tsx` file to update the footer text or links:
+Each lives in its own data file under `src/data/` and is consumed by a matching component under `src/components/about/`.
+
+| What            | Data file                           |
+| --------------- | ----------------------------------- |
+| Work history    | `src/data/experience.tsx`           |
+| Skill grid      | `src/data/skills.tsx`               |
+| Tool stack      | `src/data/tools.tsx`                |
+| Certifications  | `src/data/certifications.ts`        |
+
+`experience.tsx` supports inline JSX inside `details`, so you can bold things or add links:
 
 ```tsx
-<footer>
-  <p>Built with ❤️ by [Your Name](https://yoursite.com)</p>
-  <ul>
-    <li><a href="https://github.com/your-username">GitHub</a></li>
-    <li><a href="https://linkedin.com/in/your-profile">LinkedIn</a></li>
-  </ul>
-</footer>
+details: [
+  <>Shipped <strong>feature X</strong> using React and Node.</>,
+  <>Contributed to <a href="https://example.com">project Y</a>.</>,
+],
 ```
 
 ---
 
-## 5. Add Social Links
+## 4. Social links
 
-Update the `src/data/siteMetadata.ts` file to include your social media links:
+File: [`src/data/socials.tsx`](./src/data/socials.tsx)
 
-```typescript
-social: {
-  email: "your-email@example.com",
-  x: "https://x.com/your-handle",
-  linkedinLink: "https://www.linkedin.com/in/your-profile/",
-  githubLink: "https://github.com/your-username",
-},
-```
+Each entry becomes an icon in the hero. Icons live in [`src/components/icons/index.tsx`](./src/components/icons/index.tsx) — add new ones there and import them.
 
 ---
 
-## 6. Customize the Header
+## 5. Blog posts
 
-Edit the `src/components/header.tsx` file to modify the navigation menu or add new links:
+Drop `.mdx` files into `src/content/post/`. Frontmatter:
 
-```tsx
-<nav>
-  <a href="/about">About</a>
-  <a href="/projects">Projects</a>
-  <a href="/contact">Contact</a>
-  <a href="/blog">Blog</a> <!-- Add a new link -->
-</nav>
+```mdx
+---
+title: "My first post"
+description: "Short summary shown in /post list and <meta>."
+createdAt: "2025-01-15"   # optional — falls back to file birth time
+updatedAt: "2025-01-16"   # optional — falls back to file mtime
+---
+
+Normal markdown and MDX below…
 ```
+
+Styling of headings, code blocks, tables, etc. lives in [`src/components/mdx-content.tsx`](./src/components/mdx-content.tsx).
 
 ---
 
-## 7. Update SEO Metadata
+## 6. Images & assets
 
-Edit the `src/data/siteMetadata.ts` file to update SEO-related metadata:
+Everything under `public/` is served from `/`. Replace:
 
-```typescript
-export const siteMetadata = {
-  title: "Your Portfolio",
-  description: "Showcase your work and skills.",
-  keywords: ["Portfolio", "Developer", "React", "TypeScript"],
-  socialBanner: "/assets/banner.png", // Add a social banner image
+- `public/favicon.png`
+- `public/assets/profile.png` — hero avatar
+- `public/assets/social-banner.png` — 1200×630 OG card
+- `public/assets/overview.png` — README screenshot
+- `public/resume.pdf`
+- `public/assets/project/*.png` — project thumbnails
+
+If you add a new external image domain, whitelist it in [`next.config.ts`](./next.config.ts).
+
+---
+
+## 7. Navigation
+
+File: [`src/components/header.tsx`](./src/components/header.tsx)
+
+```ts
+const navItems = {
+  "/": { name: "home" },
+  "/about": { name: "about" },
+  "/projects": { name: "projects" },
+  "/post": { name: "post" },
+  "/activity": { name: "activity" },
 };
 ```
 
+Add/remove entries here; each key must match a folder in `src/app/`.
+
 ---
 
-## 8. Add Your Resume
+## 8. Theme & typography
 
-Replace the `public/resume.pdf` file with your own resume. Update the link in the `src/components/header.tsx` file if needed:
+Colors live in `tailwind.config.js` and `src/app/globals.css`. The only custom color is `dark-bg` (`#1D1E20`); everything else uses Tailwind defaults.
 
-```tsx
-<a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+Font is [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk), loaded via `next/font` in `src/app/layout.tsx` and wired to Tailwind's `font-sans` via the `--font-space-grotesk` CSS variable.
+
+---
+
+## 9. Activity feed (`/activity`)
+
+Pulls from GitHub search API (commits + PRs) and WakaTime (daily coding summaries). To enable:
+
+```bash
+# .env.local
+GITHUB_TOKEN=ghp_xxx          # optional; fine-grained, Contents + Metadata read
+WAKATIME_API_KEY=waka_xxx     # required for coding stats
 ```
 
+Revalidates every 60s (`export const revalidate = 60` in `src/app/activity/page.tsx`).
+
+If you don't want this page, delete `src/app/activity/`, remove the `"/activity"` entry from `header.tsx`, and drop the route from `src/app/sitemap.ts`.
+
 ---
+
+## 10. Analytics
+
+Google Analytics is wired up in [`src/app/layout.tsx`](./src/app/layout.tsx) with ID `G-P36W5PCJC2`. Replace it with yours or delete the two `<Script>` tags.

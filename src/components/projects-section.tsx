@@ -1,63 +1,33 @@
 "use client";
 
 import React from "react";
-import { WEB_APPS, AI_ML_PROJECTS, CLI_PROJECTS } from "@/data/projects";
-import { Panel, PanelHeader, PanelTitle } from "./panel";
+import { FolderKanban } from "lucide-react";
+import { ALL_PROJECTS, toProjectItem } from "@/data/projects";
+import { Panel, PanelHeader } from "./panel";
 import { CollapsibleList } from "./collapsible-list";
 import { ProjectItem } from "./project-item";
 
-
-const transformedProjects = [
-  ...WEB_APPS.map(project => ({
-    id: project.title.toLowerCase().replace(/\s+/g, '-'),
-    title: project.title,
-    period: project.period,
-    link: project.repo,
-    skills: project.tags,
-    description: project.description,
-    thumbnail: project.thumbnail,
-    isExpanded: false,
-    logo: undefined
-  })),
-  ...AI_ML_PROJECTS.map(project => ({
-    id: project.title.toLowerCase().replace(/\s+/g, '-'),
-    title: project.title,
-    period: project.period,
-    link: project.repo,
-    skills: project.tags,
-    description: project.description,
-    thumbnail: project.thumbnail,
-    isExpanded: false,
-    logo: undefined
-  })),
-  ...CLI_PROJECTS.map(project => ({
-    id: project.title.toLowerCase().replace(/\s+/g, '-'),
-    title: project.title,
-    period: project.period,
-    link: project.repo,
-    skills: project.tags,
-    description: project.description,
-    thumbnail: project.thumbnail,
-    isExpanded: false,
-    logo: undefined
-  }))
-];
+const items = ALL_PROJECTS.map(toProjectItem);
 
 export function ProjectsSection() {
   return (
-    <Panel id="projects">
+    <Panel id="projects" className="mt-6">
       <PanelHeader>
-        <PanelTitle>
-           {/* projects */}
-          <sup className="ml-1 font-mono text-sm font-medium text-muted-foreground select-none">
-            {/* ({transformedProjects.length}) */}
-          </sup>
-        </PanelTitle>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <FolderKanban className="size-4" />
+            <span className="font-bold uppercase text-xs tracking-wider">Projects</span>
+          </div>
+          <span className="font-mono text-xs text-gray-500 dark:text-gray-400 select-none">
+            {items.length}
+          </span>
+        </div>
       </PanelHeader>
 
       <CollapsibleList
-        items={transformedProjects}
+        items={items}
         max={6}
+        keyExtractor={(item) => item.id}
         renderItem={(item) => <ProjectItem project={item} />}
       />
     </Panel>

@@ -47,17 +47,17 @@ export function CollapsibleList<T>({
 
       {/* Show More/Less Button */}
       {items.length > max && (
-        <div className="flex h-12 items-center justify-center pb-px border-t border-gray-500 dark:border-gray-800">
+        <div className="flex h-12 items-center justify-center border-t border-gray-200 dark:border-gray-800">
           <Collapsible.Trigger asChild>
-            <button className="group/collapsible-trigger flex items-center font-mono gap-2 px-3 py-1 text-sm font-medium rounded-lg bg-zinc-100 text-gray-700 dark:bg-zinc-700 dark:text-gray-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+            <button className="group/collapsible-trigger inline-flex items-center font-mono gap-1.5 px-3 py-1 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:border-gray-400 dark:hover:border-gray-600 transition-colors">
               <span className="hidden group-data-[state=closed]/collapsible-trigger:block">
-                Show More
+                Show {items.length - max} more
               </span>
               <span className="hidden group-data-[state=open]/collapsible-trigger:block">
-                Show Less
+                Show less
               </span>
               <ChevronDown
-                className="w-4 h-4 group-data-[state=open]/collapsible-trigger:rotate-180 transition-transform"
+                className="size-3.5 group-data-[state=open]/collapsible-trigger:rotate-180 transition-transform"
                 aria-hidden
               />
             </button>

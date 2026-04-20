@@ -16,9 +16,34 @@ export interface Post {
   content: string;
   createdAt: string; // Always available after processing
   updatedAt: string; // Always available after processing
+  /** Estimated reading time in minutes (rounded up, minimum 1). */
+  readingTime: number;
+  /** Number of words in the post body. */
+  wordCount: number;
 }
 
 const POSTS_DIRECTORY = path.join(process.cwd(), 'src/content/post');
+
+const WORDS_PER_MINUTE = 200;
+
+/**
+ * Estimate reading time from MDX content. Strips common MDX noise
+ * (code fences, inline code, frontmatter-ish HTML) before counting words.
+ */
+export function calculateReadingTime(content: string): { readingTime: number; wordCount: number } {
+  const cleaned = content
+    .replace(/```[\s\S]*?```/g, ' ') // fenced code blocks
+    .replace(/`[^`]*`/g, ' ')        // inline code
+    .replace(/<[^>]+>/g, ' ')        // JSX/HTML tags
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ') // images
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1') // link text only
+    .replace(/[#>*_~-]/g, ' ');
+
+  const words = cleaned.split(/\s+/).filter(Boolean);
+  const wordCount = words.length;
+  const readingTime = Math.max(1, Math.ceil(wordCount / WORDS_PER_MINUTE));
+  return { readingTime, wordCount };
+}
 
 export function getAllPosts(): Post[] {
   if (!fs.existsSync(POSTS_DIRECTORY)) {
@@ -38,6 +63,7 @@ export function getAllPosts(): Post[] {
       // Auto-generate dates if not provided
       const createdAt = data.createdAt || fileStat.birthtime.toISOString().split('T')[0];
       const updatedAt = data.updatedAt || fileStat.mtime.toISOString().split('T')[0];
+      const { readingTime, wordCount } = calculateReadingTime(content);
 
       return {
         slug,
@@ -45,6 +71,8 @@ export function getAllPosts(): Post[] {
         content,
         createdAt,
         updatedAt,
+        readingTime,
+        wordCount,
       };
     })
     .sort((a, b) => {
@@ -68,6 +96,7 @@ export function getPostBySlug(slug: string): Post | null {
     // Auto-generate dates if not provided
     const createdAt = data.createdAt || fileStat.birthtime.toISOString().split('T')[0];
     const updatedAt = data.updatedAt || fileStat.mtime.toISOString().split('T')[0];
+    const { readingTime, wordCount } = calculateReadingTime(content);
 
     return {
       slug,
@@ -75,6 +104,8 @@ export function getPostBySlug(slug: string): Post | null {
       content,
       createdAt,
       updatedAt,
+      readingTime,
+      wordCount,
     };
   } catch {
     return null;

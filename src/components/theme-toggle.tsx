@@ -2,6 +2,9 @@
 import { MoonStarIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
+import { siteMetadata } from "@/data/siteMetadata";
+
+const REPO_URL = `https://github.com/${siteMetadata.handles.github}/tukesh.in`;
 
 export function ThemeToggler() {
   const { theme, setTheme } = useTheme();
@@ -22,10 +25,10 @@ export function ThemeToggler() {
   return (
     <div className="flex items-center gap-2">
       <a
-        href="https://github.com/Tukesh1/tukesh.sbs"
+        href={REPO_URL}
         target="_blank"
-        rel="noopener"
-        data-slot="button"
+        rel="noopener noreferrer"
+        aria-label="Source code on GitHub"
         className="flex size-8 items-center justify-center rounded-full transition-all text-zinc-500 hover:text-zinc-950 dark:text-zinc-500 dark:hover:text-zinc-50"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">

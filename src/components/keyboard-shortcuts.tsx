@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
  *   g p  → /projects
  *   g b  → /post      (blog)
  *   g c  → /activity  (current)
+ *   g g  → /guestbook
  *
  * Disabled while the user is typing in inputs/textareas/contenteditable.
  */
@@ -21,6 +22,7 @@ const ROUTES: Record<string, string> = {
   p: "/projects",
   b: "/post",
   c: "/activity",
+  g: "/guestbook",
 };
 
 function isTypingTarget(el: EventTarget | null): boolean {

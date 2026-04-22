@@ -29,9 +29,10 @@ Most portfolio templates are either bloated with carousels and parallax, or so m
 
 ## Features
 
-- **Home / About / Projects / Blog / Activity** — five clear pages, each a single data file away from yours.
+- **Home / About / Projects / Blog / Activity / Guestbook** — six clear pages, each a single data file (or env var) away from yours.
 - **Featured projects** surface on the homepage via a single `featured: true` flag.
 - **Live activity feed** pulls commits, PRs, and coding sessions from GitHub + WakaTime (revalidated every 60s).
+- **Signed guestbook.** Visitors sign in with GitHub and leave one public note. Admin can pin + delete.
 - **MDX blog** with syntax highlighting, JSON-LD, and SEO metadata per post.
 - **GitHub contribution calendar** with light/dark themes.
 - **SEO ready.** Sitemap, OpenGraph, Twitter cards, JSON-LD (`Person`, `WebSite`, `ProfilePage`, `BlogPosting`).
@@ -61,14 +62,35 @@ cd tukesh.in
 # 2. Install
 npm install
 
-# 3. (Optional) set env vars for the /activity page
+# 3. (Optional) set env vars for the /activity and /guestbook pages
 cp .env.example .env.local
-#    - GITHUB_TOKEN    raises the GitHub rate limit (10 → 30 req/min)
-#    - WAKATIME_API_KEY required for coding-session stats
+#    - GITHUB_TOKEN         raises the GitHub rate limit (10 → 30 req/min)
+#    - WAKATIME_API_KEY     required for coding-session stats
+#    - AUTH_SECRET + AUTH_GITHUB_*  required for /guestbook sign-in
+#    - UPSTASH_REDIS_REST_* required for /guestbook storage
 
 # 4. Dev
 npm run dev        # http://localhost:3000
 ```
+
+### Guestbook setup
+
+The `/guestbook` page uses GitHub OAuth (via Auth.js v5) and Upstash Redis. Without
+these env vars, the page still renders — it just shows a friendly "not configured"
+card instead of a form.
+
+1. **Auth secret** — generate one:
+   ```bash
+   openssl rand -base64 32   # paste into AUTH_SECRET
+   ```
+2. **GitHub OAuth App** — [Settings → Developer settings → OAuth Apps → New](https://github.com/settings/developers).
+   Callback URL: `https://<your-domain>/api/auth/callback/github`
+   (for local dev: `http://localhost:3000/api/auth/callback/github`).
+   Copy the client id / secret into `AUTH_GITHUB_ID` + `AUTH_GITHUB_SECRET`.
+3. **Upstash Redis** — create a free database at [console.upstash.com/redis](https://console.upstash.com/redis),
+   copy the REST URL + token into `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`.
+4. **Admin** — set `ADMIN_GITHUB_USERNAME` to your GitHub username to unlock
+   per-message pin/unpin and delete.
 
 ### Scripts
 

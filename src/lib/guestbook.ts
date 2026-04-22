@@ -100,25 +100,45 @@ export type CreateInput = {
   message: string;
 };
 
-export async function createMessage(input: CreateInput): Promise<GuestbookMessage> {
+/**
+ * Atomically create a message, enforcing the one-message-per-user rule at
+ * the data layer rather than relying on a prior read-check (which is racy
+ * against double-clicks, retries, and parallel requests).
+ *
+ * Returns `null` when the user already has a message on the wall.
+ */
+export async function createMessage(
+  input: CreateInput
+): Promise<GuestbookMessage | null> {
   const redis = getRedis();
   const createdAt = Date.now();
   const id = newMessageId(input.userId, createdAt);
+  const userKey = `gb:user:${input.userId}`;
 
-  await redis
-    .multi()
-    .hset(`gb:msg:${id}`, {
-      userId: input.userId,
-      username: input.username,
-      name: input.name,
-      avatar: input.avatar,
-      message: input.message,
-      createdAt,
-      pinned: "0",
-    })
-    .zadd("gb:ids", { score: createdAt, member: id })
-    .set(`gb:user:${input.userId}`, id)
-    .exec();
+  // Reserve the slot first. SETNX returns "OK" if the key was set, null if
+  // it already existed — that's our atomic "already signed" check.
+  const reserved = await redis.set(userKey, id, { nx: true });
+  if (!reserved) return null;
+
+  try {
+    await redis
+      .multi()
+      .hset(`gb:msg:${id}`, {
+        userId: input.userId,
+        username: input.username,
+        name: input.name,
+        avatar: input.avatar,
+        message: input.message,
+        createdAt,
+        pinned: "0",
+      })
+      .zadd("gb:ids", { score: createdAt, member: id })
+      .exec();
+  } catch (err) {
+    // Best-effort rollback of the reservation so the user can retry.
+    await redis.del(userKey).catch(() => {});
+    throw err;
+  }
 
   return {
     id,

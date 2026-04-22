@@ -2,7 +2,11 @@ import React from "react";
 import { Metadata } from "next";
 import { MessageSquareText, Shield, Sparkles } from "lucide-react";
 import { auth } from "@/auth";
-import { countMessages, listMessages } from "@/lib/guestbook";
+import {
+  countMessages,
+  getUserMessageId,
+  listMessages,
+} from "@/lib/guestbook";
 import { isRedisConfigured } from "@/lib/redis";
 import { siteMetadata } from "@/data/siteMetadata";
 import { Panel, PanelContent, PanelHeader } from "@/components/panel";
@@ -13,7 +17,9 @@ import {
   SignOutButton,
 } from "@/components/guestbook/sign-in-button";
 
-export const revalidate = 30;
+// Route is already request-dependent because auth() reads cookies — declare
+// it explicitly so nobody's misled into thinking the list is cached.
+export const dynamic = "force-dynamic";
 
 const pageTitle = "Guestbook";
 const pageDescription =
@@ -43,17 +49,28 @@ export const metadata: Metadata = {
 const ADMIN = (process.env.ADMIN_GITHUB_USERNAME ?? "").toLowerCase();
 
 export default async function GuestbookPage() {
-  const [session, messages, total] = await Promise.all([
-    auth(),
+  const session = await auth();
+  const viewer = session?.user;
+
+  const [messages, total, viewerMessageId] = await Promise.all([
     listMessages(200),
     countMessages(),
+    // Check Redis directly rather than probing the truncated message list —
+    // a long-tail signature older than the 200-row window would otherwise
+    // appear as "not signed" in the UI even though the server will reject
+    // the next submission.
+    viewer?.id ? getUserMessageId(viewer.id) : Promise.resolve(null),
   ]);
 
-  const viewer = session?.user;
   const viewerLogin = viewer?.login?.toLowerCase() ?? "";
   const isAdmin = Boolean(ADMIN && viewerLogin === ADMIN);
-  const hasSigned = Boolean(
-    viewer?.id && messages.some((m) => m.userId === viewer.id)
+  const hasSigned = Boolean(viewerMessageId);
+
+  // listMessages() sorts pinned-first, so messages[0] isn't necessarily the
+  // newest. Compute the true latest by timestamp for the stats strip.
+  const latestMessage = messages.reduce<(typeof messages)[number] | null>(
+    (latest, m) => (!latest || m.createdAt > latest.createdAt ? m : latest),
+    null
   );
 
   return (
@@ -91,9 +108,7 @@ export default async function GuestbookPage() {
               Latest
             </div>
             <div className="mt-1 text-sm text-gray-700 dark:text-gray-300 truncate">
-              {messages[0]
-                ? `@${messages[0].username}`
-                : "—"}
+              {latestMessage ? `@${latestMessage.username}` : "—"}
             </div>
           </div>
         </div>

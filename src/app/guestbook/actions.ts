@@ -5,7 +5,6 @@ import { auth, signIn, signOut } from "@/auth";
 import {
   createMessage,
   deleteMessage as deleteMessageInDb,
-  getUserMessageId,
   togglePin as togglePinInDb,
   MAX_MESSAGE_LEN,
   MIN_ACCOUNT_AGE_DAYS,
@@ -72,21 +71,22 @@ export async function postMessageAction(
     }
   }
 
-  const existing = await getUserMessageId(session.user.id);
-  if (existing) {
-    return {
-      ok: false,
-      error: "You already signed the wall — delete your entry to post a new one.",
-    };
-  }
-
-  await createMessage({
+  const created = await createMessage({
     userId: session.user.id,
     username: session.user.login || "",
     name: session.user.name || session.user.login || "Anonymous",
     avatar: session.user.image || "",
     message,
   });
+
+  // createMessage returns null when the user already has a message — the
+  // one-per-user rule is enforced atomically by SETNX inside the data layer.
+  if (!created) {
+    return {
+      ok: false,
+      error: "You already signed the wall — delete your entry to post a new one.",
+    };
+  }
 
   revalidatePath("/guestbook");
   return { ok: true };

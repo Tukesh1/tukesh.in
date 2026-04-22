@@ -13,10 +13,19 @@ declare module "next-auth" {
   }
 }
 
+/**
+ * Only trust the incoming Host header when we're on a managed platform that
+ * sanitizes it (Vercel) or when the operator has explicitly opted in via
+ * `AUTH_TRUST_HOST=true` / set a canonical `AUTH_URL`. This avoids Host-header
+ * spoofing on self-hosted deployments behind an unconfigured reverse proxy.
+ */
+const trustHost =
+  process.env.AUTH_TRUST_HOST === "true" ||
+  Boolean(process.env.AUTH_URL) ||
+  Boolean(process.env.VERCEL);
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  // Required when deployed behind a proxy (Vercel, Cloudflare, Railway, …).
-  // Auth.js otherwise refuses hosts it doesn't recognize.
-  trustHost: true,
+  trustHost,
   providers: [
     GitHub({
       profile(profile) {

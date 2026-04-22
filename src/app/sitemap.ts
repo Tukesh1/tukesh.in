@@ -10,6 +10,7 @@ const ROUTES: Route[] = [
   { path: "/projects", changeFrequency: "weekly", priority: 0.9 },
   { path: "/post", changeFrequency: "weekly", priority: 0.8 },
   { path: "/activity", changeFrequency: "daily", priority: 0.6 },
+  { path: "/guestbook", changeFrequency: "daily", priority: 0.5 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowUpRight, FileText } from "lucide-react";
+import { ArrowUpRight, FileText, MessageSquareText } from "lucide-react";
 
 import { SOCIALS } from "@/data/socials";
 import { FEATURED_PROJECTS, type Project } from "@/data/projects";
@@ -176,9 +176,35 @@ export default function Home() {
         </PanelContent>
       </Panel>
 
+      {/* Guestbook strip */}
+      <Link
+        href="/guestbook"
+        className="group mt-8 flex items-center justify-between gap-3 border border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg px-4 py-3 transition-colors hover:border-teal-500/40 hover:bg-teal-500/[0.03]"
+      >
+        <div className="flex min-w-0 items-center gap-2.5">
+          <MessageSquareText
+            className="size-4 shrink-0 text-teal-600 dark:text-teal-400"
+            aria-hidden="true"
+          />
+          <span className="font-mono text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+            Guestbook
+          </span>
+          <span className="hidden sm:inline text-neutral-300 dark:text-neutral-700" aria-hidden="true">
+            ·
+          </span>
+          <span className="truncate text-sm text-gray-700 dark:text-gray-300">
+            Leave a note — a hello, a recommendation, or a memory.
+          </span>
+        </div>
+        <span className="shrink-0 inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+          sign
+          <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </span>
+      </Link>
+
       {/* Featured work */}
       {FEATURED_PROJECTS.length > 0 && (
-        <Panel id="work" className="mt-12">
+        <Panel id="work" className="mt-8">
           <PanelHeader>
             <PanelTitle className="text-xl font-bold flex items-center justify-between">
               <span>Cool Stuff I&apos;m Working On</span>

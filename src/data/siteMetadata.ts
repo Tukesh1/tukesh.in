@@ -51,5 +51,9 @@ export const siteMetadata = {
       title: "Activity",
       description: "A live log of what I'm shipping — commits, pull requests, problem solves, and VS Code coding sessions. Auto-fetched from GitHub and WakaTime.",
     },
+    guestbook: {
+      title: "Guestbook",
+      description: "A public wall of notes from visitors. Sign in with GitHub and leave a hello, a recommendation, or a memory.",
+    },
   },
 };

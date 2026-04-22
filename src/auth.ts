@@ -14,12 +14,15 @@ declare module "next-auth" {
 }
 
 /**
- * Only trust the incoming Host header when we're on a managed platform that
- * sanitizes it (Vercel) or when the operator has explicitly opted in via
- * `AUTH_TRUST_HOST=true` / set a canonical `AUTH_URL`. This avoids Host-header
- * spoofing on self-hosted deployments behind an unconfigured reverse proxy.
+ * Only trust the incoming Host header in safe contexts:
+ *  - Local development (localhost is not exposed to untrusted clients).
+ *  - Managed platforms that sanitize Host (Vercel).
+ *  - Operators who explicitly opt in via AUTH_TRUST_HOST or AUTH_URL.
+ * This avoids Host-header spoofing on self-hosted deployments behind an
+ * unconfigured reverse proxy.
  */
 const trustHost =
+  process.env.NODE_ENV !== "production" ||
   process.env.AUTH_TRUST_HOST === "true" ||
   Boolean(process.env.AUTH_URL) ||
   Boolean(process.env.VERCEL);

@@ -1,87 +1,170 @@
-"use client";
-
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { compile, run } from "@mdx-js/mdx";
+import * as jsxRuntime from "react/jsx-runtime";
+import * as jsxDevRuntime from "react/jsx-dev-runtime";
+import Image from "next/image";
+import { CodeBlock } from "./mdx/code-block";
+import { mdxOptions } from "../lib/mdx-plugins";
 
 const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h1 className="mt-8 sm:mt-12 mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight first:mt-0 text-gray-900 dark:text-gray-100" {...props} />
-  ),
-  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h2 className="mt-6 sm:mt-10 mb-3 sm:mb-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100" {...props} />
-  ),
-  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h3 className="mt-6 sm:mt-8 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl lg:text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100" {...props} />
-  ),
-  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="mb-4 sm:mb-6 leading-6 sm:leading-7 md:leading-8 text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300" {...props} />
-  ),
-  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
-    <ul className="mb-4 sm:mb-6 space-y-1 sm:space-y-2 text-sm sm:text-base md:text-lg" {...props} />
-  ),
-  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="mb-4 sm:mb-6 space-y-1 sm:space-y-2 text-sm sm:text-base md:text-lg" {...props} />
-  ),
-  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className="text-gray-700 dark:text-gray-300 leading-6 sm:leading-7 md:leading-8 ml-4 sm:ml-6 list-disc" {...props} />
-  ),
-  blockquote: (props: React.HTMLAttributes<HTMLElement>) => (
-    <blockquote className="my-6 sm:my-8 border-l-4 border-gray-300 dark:border-gray-600 pl-4 sm:pl-6 italic text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-6 sm:leading-7 md:leading-8" {...props} />
-  ),
-  pre: (props: React.HTMLAttributes<HTMLPreElement>) => (
-    <pre className="my-6 sm:my-8 overflow-x-auto rounded-lg bg-gray-50 dark:bg-gray-900 p-3 sm:p-4 md:p-6 text-xs sm:text-sm border border-gray-200 dark:border-gray-800" {...props} />
-  ),
-  code: (props: React.HTMLAttributes<HTMLElement>) => (
-    <code className="rounded bg-gray-100 dark:bg-gray-800 px-1 sm:px-2 py-0.5 sm:py-1 text-xs sm:text-sm md:text-base font-mono text-gray-800 dark:text-gray-200" {...props} />
-  ),
-  img: ({ src, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={src}
-      alt={alt || ""}
-      className="my-6 sm:my-8 rounded-lg max-w-full h-auto shadow-lg mx-auto"
+    <h1
+      className="group scroll-mt-24 mt-12 mb-5 text-3xl sm:text-4xl font-bold tracking-tight first:mt-0 text-gray-900 dark:text-gray-100"
       {...props}
     />
   ),
-  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
-    <a 
-      className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline decoration-2 underline-offset-2 break-words" 
-      target={props.href?.startsWith('http') ? '_blank' : undefined}
-      rel={props.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-      {...props} 
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h2
+      className="group scroll-mt-24 mt-10 mb-4 text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100"
+      {...props}
     />
   ),
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h3
+      className="group scroll-mt-24 mt-8 mb-3 text-xl sm:text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+      {...props}
+    />
+  ),
+  h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
+    <h4
+      className="group scroll-mt-24 mt-6 mb-2 text-lg sm:text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100"
+      {...props}
+    />
+  ),
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
+    <p
+      className="mb-6 text-[17px] sm:text-[18px] leading-[1.75] text-gray-700 dark:text-gray-300"
+      {...props}
+    />
+  ),
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
+    <ul className="mb-6 ml-6 list-disc space-y-2 text-[17px] sm:text-[18px] leading-[1.75] text-gray-700 dark:text-gray-300 marker:text-gray-400 dark:marker:text-gray-600" {...props} />
+  ),
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
+    <ol className="mb-6 ml-6 list-decimal space-y-2 text-[17px] sm:text-[18px] leading-[1.75] text-gray-700 dark:text-gray-300 marker:text-gray-400 dark:marker:text-gray-600" {...props} />
+  ),
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
+    <li className="pl-1" {...props} />
+  ),
+  blockquote: (props: React.HTMLAttributes<HTMLElement>) => (
+    <blockquote
+      className="my-8 border-l-[3px] border-teal-500/70 dark:border-teal-400/70 pl-5 italic text-lg sm:text-xl text-gray-600 dark:text-gray-400 leading-relaxed [&>p]:mb-0 [&>p]:text-inherit"
+      {...props}
+    />
+  ),
+  hr: (props: React.HTMLAttributes<HTMLHRElement>) => (
+    <hr
+      className="my-12 border-0 text-center before:content-['·_·_·'] before:tracking-[0.5em] before:text-gray-400 dark:before:text-gray-600"
+      {...props}
+    />
+  ),
+  pre: (props: React.HTMLAttributes<HTMLPreElement>) => <CodeBlock {...props} />,
+  code: ({ className, children, ...props }: React.HTMLAttributes<HTMLElement> & { "data-language"?: string }) => {
+    const isBlock = "data-language" in props || className?.includes("language-");
+    if (isBlock) {
+      return <code className={className} {...props}>{children}</code>;
+    }
+    return (
+      <code
+        className="rounded-md bg-gray-100 dark:bg-gray-800/80 px-1.5 py-0.5 text-[0.9em] font-mono text-gray-900 dark:text-gray-100 before:content-none after:content-none"
+        {...props}
+      >
+        {children}
+      </code>
+    );
+  },
+  img: ({ src, alt, width, height, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    if (typeof src !== "string") return null;
+    const w = typeof width === "number" ? width : 1200;
+    const h = typeof height === "number" ? height : 630;
+    return (
+      <figure className="my-8 sm:my-10">
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          width={w}
+          height={h}
+          className="w-full h-auto rounded-lg border border-gray-200 dark:border-gray-800"
+          {...props}
+        />
+        {alt ? (
+          <figcaption className="mt-3 text-center text-sm text-gray-500 dark:text-gray-500 italic">
+            {alt}
+          </figcaption>
+        ) : null}
+      </figure>
+    );
+  },
+  a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+    const isExternal = props.href?.startsWith("http");
+    return (
+      <a
+        className="font-medium text-gray-900 dark:text-gray-100 underline decoration-gray-300 dark:decoration-gray-600 underline-offset-[3px] decoration-2 hover:decoration-teal-500 dark:hover:decoration-teal-400 transition-colors"
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        {...props}
+      />
+    );
+  },
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
     <strong className="font-semibold text-gray-900 dark:text-gray-100" {...props} />
   ),
   em: (props: React.HTMLAttributes<HTMLElement>) => (
-    <em className="italic text-gray-800 dark:text-gray-200" {...props} />
+    <em className="italic" {...props} />
   ),
   table: (props: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-6 sm:my-8 overflow-x-auto">
-      <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm sm:text-base" {...props} />
+    <div className="my-8 -mx-4 sm:mx-0 overflow-x-auto">
+      <table className="min-w-full text-sm sm:text-base border-collapse" {...props} />
     </div>
   ),
   thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <thead className="bg-gray-50 dark:bg-gray-800" {...props} />
-  ),
-  tbody: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <tbody {...props} />
+    <thead className="border-b border-gray-300 dark:border-gray-700" {...props} />
   ),
   tr: (props: React.HTMLAttributes<HTMLTableRowElement>) => (
-    <tr className="border-b border-gray-200 dark:border-gray-700" {...props} />
+    <tr className="border-b border-gray-200 dark:border-gray-800 last:border-0" {...props} />
   ),
   th: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <th className="border border-gray-300 dark:border-gray-600 px-3 sm:px-4 py-2 text-left font-semibold text-gray-900 dark:text-gray-100" {...props} />
+    <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-gray-100" {...props} />
   ),
   td: (props: React.HTMLAttributes<HTMLTableCellElement>) => (
-    <td className="border border-gray-300 dark:border-gray-600 px-3 sm:px-4 py-2 text-gray-700 dark:text-gray-300" {...props} />
+    <td className="px-4 py-3 text-gray-700 dark:text-gray-300" {...props} />
   ),
+  input: (props: React.InputHTMLAttributes<HTMLInputElement>) => {
+    if (props.type === "checkbox") {
+      return (
+        <input
+          {...props}
+          className="mr-2 -translate-y-[1px] accent-teal-500"
+          disabled
+        />
+      );
+    }
+    return <input {...props} />;
+  },
 };
 
-export function MDXContent({ source }: { source: string }) {
+const isDev = process.env.NODE_ENV === "development";
+const runtime = isDev ? jsxDevRuntime : jsxRuntime;
+
+// Renders an MDX string via @mdx-js/mdx directly, so we can pick the JSX
+// runtime (dev vs prod) that matches React's current mode. next-mdx-remote
+// hardcodes the prod runtime, which breaks under React 19 dev mode.
+export async function MDXContent({ source }: { source: string }) {
+  const compiled = await compile(source, {
+    outputFormat: "function-body",
+    development: isDev,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    remarkPlugins: mdxOptions.remarkPlugins as any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rehypePlugins: mdxOptions.rehypePlugins as any,
+  });
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mod = await run(String(compiled), runtime as any);
+  const MDXDefault = mod.default as React.ComponentType<{ components: typeof components }>;
+
   return (
-    <div className="mdx-content w-full overflow-hidden">
-      <MDXRemote source={source} components={components} />
+    <div className="mdx-content w-full">
+      <MDXDefault components={components} />
     </div>
   );
 }

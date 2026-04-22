@@ -192,7 +192,122 @@ table {
   }
 }
 
-/* Custom text selection colors */
+/* ---------- MDX blog styles ---------- */
+
+/* rehype-pretty-code + Shiki v3 dual-theme: tokens carry --shiki-light
+   and --shiki-dark CSS vars. Resolve to the active theme here. */
+.mdx-content pre code[data-theme] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+html.dark .mdx-content pre code[data-theme] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+
+/* Line wrappers — rehype-pretty-code uses `data-line`. Pad + make gutter work. */
+.mdx-content pre > code {
+  counter-reset: line;
+  padding-block: 0;
+}
+.mdx-content pre > code > [data-line] {
+  display: inline-block;
+  width: 100%;
+  padding-inline: 1rem;
+  border-inline-start: 2px solid transparent;
+}
+
+/* Highlighted lines (rehype-pretty-code `{1,3-5}` meta). */
+.mdx-content [data-highlighted-line],
+.mdx-content .line--highlighted {
+  background-color: rgb(20 184 166 / 0.08);
+  border-inline-start-color: rgb(20 184 166);
+}
+html.dark .mdx-content [data-highlighted-line],
+html.dark .mdx-content .line--highlighted {
+  background-color: rgb(45 212 191 / 0.08);
+  border-inline-start-color: rgb(45 212 191);
+}
+
+/* Highlighted words (rehype-pretty-code `/foo/` meta). */
+.mdx-content [data-highlighted-chars],
+.mdx-content .word--highlighted {
+  background-color: rgb(20 184 166 / 0.15);
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+}
+html.dark .mdx-content [data-highlighted-chars],
+html.dark .mdx-content .word--highlighted {
+  background-color: rgb(45 212 191 / 0.2);
+}
+
+/* Title above code block when using rehype-pretty-code `title` meta:
+   ```ts title="foo.ts" */
+.mdx-content figure[data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
+  margin-bottom: 0.25rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid rgb(229 231 235);
+  border-bottom: 0;
+  background-color: rgb(250 250 250);
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  color: rgb(55 65 81);
+}
+html.dark .mdx-content figure[data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
+  border-color: rgb(31 41 55);
+  background-color: rgb(17 17 23);
+  color: rgb(209 213 219);
+}
+.mdx-content figure[data-rehype-pretty-code-figure]:has([data-rehype-pretty-code-title]) pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Heading anchor links — appear on hover. */
+.mdx-content :is(h1, h2, h3, h4) .heading-anchor {
+  margin-inline-start: 0.5rem;
+  color: rgb(156 163 175);
+  opacity: 0;
+  text-decoration: none;
+  font-weight: 400;
+  transition: opacity 150ms ease;
+}
+.mdx-content :is(h1, h2, h3, h4):hover .heading-anchor {
+  opacity: 1;
+}
+.mdx-content .heading-anchor::before {
+  content: "#";
+}
+
+/* Optional Medium-style drop cap on the very first paragraph of a post.
+   Trigger with <div class="drop-cap"> wrapping the lede, or rely on
+   :first-of-type when the first MDX block is a paragraph. */
+.mdx-content > .drop-cap > p:first-child::first-letter,
+.mdx-content > p:first-of-type::first-letter {
+  float: left;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3.25rem;
+  line-height: 0.9;
+  padding: 0.35rem 0.6rem 0 0;
+  font-weight: 700;
+  color: rgb(17 24 39);
+}
+html.dark .mdx-content > .drop-cap > p:first-child::first-letter,
+html.dark .mdx-content > p:first-of-type::first-letter {
+  color: rgb(243 244 246);
+}
+
+/* GFM task lists: hide the default bullet dot. */
+.mdx-content ul:has(> li > input[type="checkbox"]) {
+  list-style: none;
+  margin-inline-start: 0;
+}
+.mdx-content ul:has(> li > input[type="checkbox"]) > li {
+  padding-inline-start: 0;
+}
+
+/* ---------- Text selection colors ---------- */
 ::selection {
   background-color: #fbbf24; /* Yellow background */
   color: #1f2937; /* Dark gray text for contrast */

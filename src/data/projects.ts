@@ -20,6 +20,22 @@ export interface Project {
 
 export const WEB_APPS: Project[] = [
   {
+    title: "nimo-code-review-agent",
+    category: "agents",
+    tags: ["TypeScript", "GitHub Actions", "AI", "Docker", "LLMs"],
+    description: [
+      "Privacy-first AI code reviewer running directly inside GitHub Actions.",
+      "Provides rich inline comments, security vulnerability checks, and complete PR summaries.",
+      "Fully customizable, allowing teams to inject their own specific coding standards and rules.",
+    ],
+    tagline:
+      "Automated, tailored, and context-aware AI code reviews directly in your GitHub workflow.",
+    thumbnail: "/assets/project/nimo.png",
+    repo: "https://github.com/Tukesh1/nimo-code-review-agent",
+    featured: true,
+    period: { start: "06. 2026" },
+  },
+  {
     title: "codexp-ai",
     category: "web",
     tags: ["Next.js", "TypeScript", "AI", "LLM"],

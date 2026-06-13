@@ -1,4 +1,4 @@
-export type ProjectCategory = "web" | "ai-ml" | "cli";
+export type ProjectCategory = "web" | "ai-ml" | "cli" | "agents";
 
 export interface Project {
   title: string;

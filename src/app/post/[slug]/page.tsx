@@ -170,7 +170,7 @@ export default async function PostPage({ params }: PostPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <article className="max-w-2xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+      <article className="w-full max-w-full py-10 sm:py-16 lg:max-w-4xl lg:mx-auto">
         <div className="mb-10">
           <Link
             href="/post"

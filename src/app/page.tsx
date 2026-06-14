@@ -218,8 +218,11 @@ export default function Home() {
           </PanelHeader>
           <PanelContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {FEATURED_PROJECTS.map((project) => (
-                <FeaturedCard key={project.title} project={project} />
+              {FEATURED_PROJECTS.slice(0, 2).map((project) => (
+                <FeaturedCard
+                  key={project.title}
+                  project={project}
+                />
               ))}
             </div>
           </PanelContent>

@@ -407,3 +407,96 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* ---------- View Toggle (Human / Machine) ---------- */
+
+.view-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 4px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+}
+.dark .view-toggle {
+  background: rgba(30, 30, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.view-toggle__btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+.dark .view-toggle__btn {
+  color: #9ca3af;
+}
+
+.view-toggle__btn:hover:not(.view-toggle__btn--active) {
+  color: #111827;
+  background: rgba(0, 0, 0, 0.04);
+}
+.dark .view-toggle__btn:hover:not(.view-toggle__btn--active) {
+  color: #f3f4f6;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.view-toggle__btn--active {
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.dark .view-toggle__btn--active {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.view-toggle__icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ---------- Machine View ---------- */
+
+.machine-view {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #1f2328;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+.dark .machine-view {
+  color: #c9d1d9;
+}
+
+/* Content area */
+.machine-view__content {
+  padding: 24px 0 100px 0; /* Add bottom padding so text isn't hidden by the bottom toggle */
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+}

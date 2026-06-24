@@ -40,11 +40,11 @@ export const siteMetadata = {
       description: "Frontend Developer & AI Engineer creating beautiful, responsive web applications with React and TypeScript, while leveraging AI/ML technologies for innovative solutions.",
     },
     about: {
-      title: "About ",
+      title: "About",
       description: "Frontend Developer & AI Engineer, my skills in React, TypeScript, Python, and experience building AI-powered web applications.",
     },
     projects: {
-      title: "Projects ",
+      title: "Projects",
       description: "Explore my frontend web applications and AI/ML projects. From interactive UIs to machine learning solutions, see what I've built.",
     },
     activity: {

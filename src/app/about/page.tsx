@@ -69,6 +69,7 @@ export default function About() {
   return (
     <section className="py-12">
       <div className="max-w-4xl mx-auto">
+        <h1 className="sr-only">About {siteMetadata.author} - Skills, Experience, and Certifications</h1>
         <Section icon={<Briefcase />} title="Experience" bodyClassName="p-0">
           <WorkExperience />
         </Section>

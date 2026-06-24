@@ -2,76 +2,87 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 import { siteMetadata } from "@/data/siteMetadata";
 
 interface GitHubCalendarProps {
   username: string;
   blockSize?: number;
   blockMargin?: number;
-  color?: string;
+  blockRadius?: number;
   fontSize?: number;
+  colorScheme?: "light" | "dark";
   theme?: {
     light: string[];
     dark: string[];
   };
-  showTotalCount?: boolean;
-  dateFormat?: string;
-  startDate?: Date;
-  endDate?: Date;
+  labels?: {
+    totalCount?: string;
+    legend?: { less?: string; more?: string };
+  };
+  hideColorLegend?: boolean;
+  hideTotalCount?: boolean;
+  hideMonthLabels?: boolean;
+  showWeekdayLabels?: boolean | string[];
+  style?: React.CSSProperties;
+  year?: number | "last";
 }
 
-// react-github-calendar is ~30kB and client-only; load it after hydration
-const GitHubCalendarTyped = dynamic(
+// Lazy-load the heavy calendar widget after hydration
+const Calendar = dynamic(
   () =>
     import("react-github-calendar").then(
       (m) => m.default as React.ComponentType<GitHubCalendarProps>
     ),
   {
     ssr: false,
-    loading: () => (
-      <div className="h-[140px] w-full animate-pulse rounded bg-neutral-100 dark:bg-neutral-800/60" />
-    ),
+    loading: () => <div className="github-calendar-skeleton" />,
   }
 );
 
 export function Github() {
-  const today = new Date();
-  const startDate = new Date(today);
-  startDate.setMonth(today.getMonth() - 12);
+  const { resolvedTheme } = useTheme();
+  const colorScheme = resolvedTheme === "dark" ? "dark" : "light";
 
   return (
-    <div id="github">
-      <div className="px-3 py-4 border border-neutral-900/10 dark:border-neutral-50/10 hover:border-neutral-900/30 dark:hover:border-neutral-50/30 rounded bg-white dark:bg-dark-bg shadow-md flex flex-col items-center transition-colors duration-700 hover:duration-100">
-        <h1 className="text-base font-semibold text-gray-900 dark:text-white mb-4 tracking-tight text-center">
-          Days I <span className="text-green-600 dark:text-green-400">Code</span>
-        </h1>
-        <div className="overflow-x-auto w-full flex justify-center">
-          <GitHubCalendarTyped
+    <div id="github" className="github-graph">
+      <div className="github-graph__card">
+        <div className="github-graph__calendar">
+          <Calendar
             username={siteMetadata.handles.github}
-            blockSize={10}
-            blockMargin={2}
-            color="#239a3b"
-            fontSize={16}
+            colorScheme={colorScheme}
+            blockSize={12}
+            blockMargin={3}
+            blockRadius={2}
+            fontSize={12}
             theme={{
               light: [
                 "#ebedf0",
-                "#c6e48b",
-                "#7bc96f",
-                "#239a3b",
-                "#196127",
+                "#9be9a8",
+                "#40c463",
+                "#30a14e",
+                "#216e39",
               ],
               dark: [
-                "#4b5563",
-                "#bef264",
-                "#84cc16",
-                "#52d726",
-                "#3f9c1f",
+                "#161b22",
+                "#0e4429",
+                "#006d32",
+                "#26a641",
+                "#39d353",
               ],
             }}
-            showTotalCount={true}
-            dateFormat="yyyy-mm-dd"
-            startDate={startDate}
-            endDate={today}
+            labels={{
+              totalCount:
+                "{{count}} contributions in the last year",
+              legend: {
+                less: "Less",
+                more: "More",
+              },
+            }}
+            hideTotalCount={false}
+            hideColorLegend={false}
+            hideMonthLabels={false}
+            year="last"
           />
         </div>
       </div>

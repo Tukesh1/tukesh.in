@@ -185,11 +185,12 @@ export default async function ActivityPage() {
 
   return (
     <React.Fragment>
+      <h1 className="sr-only">Activity - {siteMetadata.author}</h1>
       {/* Intro */}
       <Panel className="mt-6">
         <PanelHeader>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-            A live log of what I&apos;m working on — commits pushed, pull requests, problems
+            A live log of what I&apos;m working on commits pushed, pull requests, problems
             solved, and quiet coding sessions in VS Code that never made it to GitHub.
             Auto-fetched from GitHub and WakaTime, synced every minute.
           </p>

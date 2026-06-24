@@ -89,13 +89,13 @@ export default function Home() {
       <Panel className="mt-6">
         <PanelHeader className="lg:flex lg:items-start lg:gap-10">
           <div className="lg:w-2/3">
-            <PanelTitle className="text-2xl font-bold flex items-center gap-2">
+            <h1 className="text-2xl font-bold flex items-center gap-2">
               {siteMetadata.author}
               <VerifiedIcon
                 className="inline-block size-[0.8em] translate-y-px text-sky-500 select-none"
                 aria-hidden="true"
               />
-            </PanelTitle>
+            </h1>
             <p className="text-sm text-balance text-muted-foreground dark:text-gray-400 select-none">
               <Typewriter
                 phrases={[

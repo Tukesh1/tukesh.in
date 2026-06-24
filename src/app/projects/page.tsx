@@ -58,6 +58,7 @@ export default function Projects() {
 
   return (
     <React.Fragment>
+      <h1 className="sr-only">Projects by {siteMetadata.author}</h1>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}

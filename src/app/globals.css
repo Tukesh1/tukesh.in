@@ -328,3 +328,82 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   background-color: #f59e0b; /* Darker yellow for Firefox dark mode */
   color: #111827; /* Very dark gray text */
 }
+
+/* ---------- GitHub Contribution Graph ---------- */
+
+/* Skeleton placeholder while the calendar JS loads */
+.github-calendar-skeleton {
+  height: 160px;
+  width: 100%;
+  border-radius: 6px;
+  background: #f6f8fa;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.dark .github-calendar-skeleton {
+  background: #161b22;
+}
+
+/* Card */
+.github-graph__card {
+  border: 1px solid #d1d9e0;
+  border-radius: 6px;
+  background: #fff;
+  padding: 16px;
+  overflow: hidden;
+}
+.dark .github-graph__card {
+  border-color: #3d444d;
+  background: #1D1E20;
+}
+
+/* Calendar scroll container */
+.github-graph__calendar {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+/* react-activity-calendar text (month labels, weekday labels, total count) */
+.github-graph__calendar text {
+  font-size: 12px !important;
+  fill: #656d76 !important;
+}
+.dark .github-graph__calendar text {
+  fill: #848d97 !important;
+}
+
+/* Total count text */
+.github-graph__calendar .react-activity-calendar__count {
+  font-size: 14px !important;
+  color: #1f2328 !important;
+}
+.dark .github-graph__calendar .react-activity-calendar__count {
+  color: #e6edf3 !important;
+}
+
+/* Legend row — "Less □□□□□ More" */
+.github-graph__calendar .react-activity-calendar__legend {
+  margin-top: 4px;
+}
+.github-graph__calendar .react-activity-calendar__legend-colors {
+  gap: 3px;
+}
+
+/* Legend labels */
+.github-graph__calendar .react-activity-calendar__legend-less,
+.github-graph__calendar .react-activity-calendar__legend-more {
+  font-size: 11px !important;
+  color: #656d76 !important;
+}
+.dark .github-graph__calendar .react-activity-calendar__legend-less,
+.dark .github-graph__calendar .react-activity-calendar__legend-more {
+  color: #848d97 !important;
+}
+
+/* Pulse animation for skeleton loader */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

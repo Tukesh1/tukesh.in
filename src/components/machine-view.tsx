@@ -105,7 +105,7 @@ export function MachineView() {
       {/* Floating copy button fixed at the top right of the screen */}
       <button
         onClick={handleCopy}
-        className="fixed top-4 right-4 md:top-8 md:right-8 p-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 transition-colors z-50 bg-white/50 dark:bg-black/50 backdrop-blur-md border border-gray-200 dark:border-gray-800"
+        className="fixed top-4 right-4 md:top-8 md:right-8 p-3 rounded-md bg-transparent hover:bg-gray-100 dark:hover:bg-neutral-800/50 text-gray-500 dark:text-gray-400 transition-colors z-50"
         aria-label="Copy prompt"
         title="Copy prompt"
       >

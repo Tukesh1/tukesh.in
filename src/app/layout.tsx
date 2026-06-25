@@ -2,8 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { cn } from "../lib/utils";
 import { ThemeProvider } from "../components/theme-provider";
-import { Header } from "../components/header";
-import { Footer } from "../components/footer";
+import { ViewModeProvider } from "../components/view-mode-provider";
+import { AppView } from "../components/app-view";
+import { ViewToggle } from "../components/view-toggle";
 
 import { TailwindIndicator } from "../components/tailwind-indicator";
 import { KeyboardShortcuts } from "../components/keyboard-shortcuts";
@@ -88,6 +89,7 @@ export default function RootLayout({
         <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
         <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <link rel="alternate" type="text/markdown" href="/llms.txt" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="google-site-verification" content="xkBWbb9OnEAZEfrakVYXOpIcFlAH5qEA66FtywraJfI" />
         <meta name="dmca-site-verification" content="K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090" />
@@ -109,11 +111,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="mx-4 px-2 md:px-0 lg:mx-auto flex flex-col justify-between min-h-screen">
-            <Header />
-            <div className="animate-fade-up flex-1 flex flex-col">{children}</div>
-            <Footer />
-          </main>
+          <ViewModeProvider>
+            <AppView>{children}</AppView>
+            <ViewToggle />
+          </ViewModeProvider>
           <KeyboardShortcuts />
           <TailwindIndicator />
         </ThemeProvider>

@@ -20,6 +20,21 @@ export interface Project {
 
 export const WEB_APPS: Project[] = [
   {
+    title: "git-brief",
+    category: "ai-ml",
+    tags: ["Go", "CLI", "AI", "GitHub API", "Developer Tools"],
+    description: [
+      "Built `git-brief`, an open-source CLI in Go that generates daily standups from local Git history, GitHub activity, and in-progress changes.",
+      "Parsed Git internals including `git status --porcelain`, `git stash`, commit timestamps, and `Co-authored-by` trailers to summarize active development work instead of only committed changes.",
+      "Integrated Gemini, Claude, and OpenAI through their Go SDKs, using structured prompts to generate concise, Slack-ready standups."
+    ],
+    tagline: "Stop writing standup. You already logged the work.",
+    thumbnail: "/assets/project/git-brief.png",
+    repo: "https://tukesh1.github.io/git-brief",
+    featured: true,
+    period: { start: "06. 2026" },
+  },
+  {
     title: "nimo-code-review-agent",
     category: "agents",
     tags: ["TypeScript", "GitHub Actions", "AI", "Docker", "LLMs"],
@@ -40,7 +55,7 @@ export const WEB_APPS: Project[] = [
     category: "web",
     tags: ["Next.js", "TypeScript", "AI", "LLM"],
     description: [
-      "AI-powered platform that explains, documents, and visualizes source code.",
+      "AI-platform that explains, documents, and visualizes source code.",
       "Helps developers understand and onboard to unfamiliar codebases faster.",
       "Generates instant docs, diagrams, and repo Q&A.",
     ],

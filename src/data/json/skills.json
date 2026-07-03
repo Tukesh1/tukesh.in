@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Web Design & Development",
+    "icon": "DiHtml5",
+    "iconColor": "text-orange-500",
+    "subskills": "HTML, CSS, JavaScript, TypeScript"
+  },
+  {
+    "title": "Frontend JavaScript Frameworks",
+    "icon": "DiReact",
+    "iconColor": "text-cyan-400",
+    "subskills": "Angular, React, Vue.js"
+  },
+  {
+    "title": "Backend JavaScript Frameworks",
+    "icon": "DiNodejs",
+    "iconColor": "text-green-600",
+    "subskills": "Node.js, Express.js, NestJS"
+  },
+  {
+    "title": "Scripting Languages",
+    "icon": "DiPython",
+    "iconColor": "text-yellow-400",
+    "subskills": "Python, Rust"
+  },
+  {
+    "title": "Database Management",
+    "icon": "DiMongodb",
+    "iconColor": "text-green-700",
+    "subskills": "Postgres, TypeORM, MongoDB, Mongoose"
+  },
+  {
+    "title": "UI/UX Design",
+    "icon": "DiCss3",
+    "iconColor": "text-blue-400",
+    "subskills": "Adobe XD, Figma, Sketch"
+  },
+  {
+    "title": "Data Processing & Machine Learning",
+    "icon": "SiNextdotjs",
+    "iconColor": "text-black dark:text-white",
+    "subskills": "LangChain, scikit-learn, TensorFlow, Keras"
+  },
+  {
+    "title": "Version Control",
+    "icon": "DiGit",
+    "iconColor": "text-orange-600",
+    "subskills": "Git, GitHub"
+  }
+]

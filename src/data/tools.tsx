@@ -1,23 +1,13 @@
 import React from "react";
-import { DiVisualstudio, DiCode } from "react-icons/di";
-import { SiReplit } from "react-icons/si";
+import toolsData from "./json/tools.json";
+import { resolveIcon } from "./icon-map";
 
 export interface Tool {
   name: string;
   icon: React.ReactElement;
 }
 
-export const TOOLS: Tool[] = [
-  {
-    name: "VS Code",
-    icon: <DiVisualstudio className="text-indigo-600 dark:text-indigo-400" />,
-  },
-  {
-    name: "Replit",
-    icon: <SiReplit className="text-indigo-600 dark:text-indigo-400" />,
-  },
-  {
-    name: "Cursor",
-    icon: <DiCode className="text-indigo-600 dark:text-indigo-400" />,
-  },
-];
+export const TOOLS: Tool[] = toolsData.map((t) => ({
+  name: t.name,
+  icon: resolveIcon(t.icon, t.iconColor),
+}));

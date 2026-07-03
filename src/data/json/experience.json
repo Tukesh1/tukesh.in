@@ -1,0 +1,57 @@
+[
+  {
+    "company": "Accenture",
+    "role": "Associate Software Developer",
+    "duration": "2026 — Present",
+    "location": "Gurgaon, India",
+    "current": true,
+    "details": [
+      "Developed and maintained web applications using **React** and **Node.js**.",
+      "Collaborated with cross-functional teams to deliver high-quality products.",
+      "Implemented responsive UI with **Bootstrap**.",
+      "Worked in an **agile** environment and participated in code reviews."
+    ],
+    "skills": ["React", "Node.js", "Bootstrap", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS"]
+  },
+  {
+    "company": "AfterQuery Experts",
+    "role": "Software Engineering — Bash/Linux",
+    "duration": "2025 — 2026",
+    "location": "Freelance, Remote",
+    "details": [
+      "Contributed to **[Terminal Bench](https://www.tbench.ai/)** benchmarking by creating relevant tasks and solutions.",
+      "Designed multi-step command-line development exercises (debugging, refactoring, data processing, build automation).",
+      "Wrote clear, detailed documentation describing objectives and requirements.",
+      "Developed deterministic test suites and reference solutions.",
+      "Built reproducible, isolated test environments with **bash scripts**."
+    ],
+    "skills": ["Python", "Docker", "Golang", "QA", "Bash", "Linux"]
+  },
+  {
+    "company": "Alignerr",
+    "role": "AI Coding Trainer",
+    "duration": "2024 — 2025",
+    "location": "Freelance, Remote",
+    "details": [
+      "Trained AI to code in **Python**, **JavaScript**, and **C++**.",
+      "Debugged and optimized code for better performance.",
+      "Documented code and provided feedback to the team.",
+      "Containerized project environments using **Docker**, creating **build.sh** / **run.sh** scripts to automate builds, tests and deployments.",
+      "Developed reproducible test environments in **Docker**, ensuring consistent results across local and **CI/CD** pipelines."
+    ],
+    "skills": ["Python", "Docker", "Golang", "Debugging"]
+  },
+  {
+    "company": "WebSoft Solution",
+    "role": "Web Developer Intern",
+    "duration": "2023 — 2024",
+    "location": "Remote",
+    "details": [
+      "Developed and maintained web applications using **React** and **Node.js**.",
+      "Collaborated with cross-functional teams to deliver high-quality products.",
+      "Implemented responsive UI with **Tailwind CSS**.",
+      "Worked in an **agile** environment and participated in code reviews."
+    ],
+    "skills": ["React", "Node.js", "Tailwind CSS", "Next.js"]
+  }
+]

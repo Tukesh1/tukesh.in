@@ -1,0 +1,17 @@
+[
+  {
+    "name": "VS Code",
+    "icon": "DiVisualstudio",
+    "iconColor": "text-indigo-600 dark:text-indigo-400"
+  },
+  {
+    "name": "Replit",
+    "icon": "SiReplit",
+    "iconColor": "text-indigo-600 dark:text-indigo-400"
+  },
+  {
+    "name": "Cursor",
+    "icon": "DiCode",
+    "iconColor": "text-indigo-600 dark:text-indigo-400"
+  }
+]

@@ -123,29 +123,41 @@ src/
 │
 ├── content/             # MDX blog posts
 │
-├── data/                # ALL content lives here — edit these files to customize
-│   ├── siteMetadata.ts  # Name, description, social links, SEO keywords
-│   ├── projects.ts      # Your projects (set `featured: true` to surface on home)
-│   ├── experience.tsx   # Work history (supports inline JSX for bold / links)
-│   ├── skills.tsx       # Skill grid
-│   ├── tools.tsx        # Tool stack
-│   ├── certifications.ts
-│   ├── socials.tsx      # Social icons shown on the home page
+├── data/
+│   ├── json/                # Edit ONLY these files to personalise
+│   │   ├── site.json        # Name, description, social links, SEO keywords
+│   │   ├── projects.json    # Your projects (set featured:true for homepage)
+│   │   ├── experience.json  # Work history (supports **bold** and [links](url))
+│   │   ├── skills.json      # Skill grid with icon keys
+│   │   ├── tools.json       # Tool stack with icon keys
+│   │   ├── socials.json     # Social icons shown on the home page
+│   │   └── certifications.json
+│   │
+│   ├── icon-map.tsx     # Maps icon key strings → React components (add new icons here)
+│   ├── siteMetadata.ts  # Thin adapter — reads site.json
+│   ├── projects.ts      # Thin adapter — reads projects.json
+│   ├── experience.tsx   # Thin adapter — reads experience.json
+│   ├── skills.tsx       # Thin adapter — reads skills.json
+│   ├── tools.tsx        # Thin adapter — reads tools.json
+│   ├── socials.tsx      # Thin adapter — reads socials.json
+│   ├── certifications.ts# Thin adapter — reads certifications.json
 │   └── activity.ts      # GitHub + WakaTime fetching logic
 │
-└── lib/utils.ts         # cn() helper, formatDate()
+├── lib/
+│   ├── build-profile-text.ts  # Shared AI profile builder (llms.txt + machine-view)
+│   └── utils.ts               # cn() helper, formatDate()
 ```
 
 ## Making it yours
 
 See **[Customization.md](./Customization.md)** for a step-by-step walkthrough.
 
-TL;DR — 90% of what you need to change lives in `src/data/`:
+TL;DR — **all personal data lives in `src/data/json/`**. Edit only those files:
 
-1. Edit `src/data/siteMetadata.ts` (name, URL, social links).
+1. Edit `src/data/json/site.json` — name, URL, email, social handles, SEO.
 2. Replace `public/assets/profile.png`, `public/assets/social-banner.png`, `public/resume.pdf`.
-3. Add your projects to `src/data/projects.ts` (mark your best 2-3 with `featured: true`).
-4. Update `src/data/experience.tsx`, `skills.tsx`, `tools.tsx`, `certifications.ts`.
+3. Add projects to `src/data/json/projects.json` — valid categories: `"web"`, `"ai-ml"`, `"cli"`, `"agents"`. Mark your best 2–3 with `"featured": true`.
+4. Update `src/data/json/experience.json`, `skills.json`, `tools.json`, `certifications.json`.
 5. Drop MDX posts into `src/content/post/`.
 6. Deploy to Vercel (recommended) or any Node host.
 

@@ -1,3 +1,5 @@
+import certificationsData from "./json/certifications.json";
+
 export interface Certification {
   title: string;
   /** YYYY-MM format */
@@ -7,17 +9,5 @@ export interface Certification {
   iconImage?: string;
 }
 
-export const CERTIFICATIONS: Certification[] = [
-  {
-    title: "AWS Academy Cloud Foundations",
-    date: "2024-09",
-    link: "https://www.credly.com/badges/6d28d30a-a8cf-4213-8a8c-d3da867faf1b/public_url",
-    iconImage: "/assets/aws-cloud.png",
-  },
-  {
-    title: "Mastering Data Structure and Algorithms",
-    date: "2024-05",
-    link: "https://ninjasfiles.s3.amazonaws.com/certificate3164967230bd583dd9e20b02bb7f61c48e59cda.pdf",
-    icon: "🥷",
-  },
-];
+export const CERTIFICATIONS: Certification[] =
+  certificationsData as Certification[];

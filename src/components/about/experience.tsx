@@ -4,6 +4,50 @@ import { Briefcase, ChevronDown, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EXPERIENCES } from "@/data/experience";
 
+/**
+ * Renders a markdown-flavoured detail string.
+ * Supports: **bold** and [link text](url).
+ */
+function renderDetail(text: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  // Regex: matches **bold** or [text](url)
+  const regex = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(text)) !== null) {
+    // Push plain text before the match
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    if (match[1] !== undefined) {
+      // **bold**
+      parts.push(<strong key={match.index}>{match[1]}</strong>);
+    } else if (match[2] !== undefined && match[3] !== undefined) {
+      // [text](url)
+      parts.push(
+        <a
+          key={match.index}
+          href={match[3]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
+        >
+          {match[2]}
+        </a>
+      );
+    }
+    lastIndex = regex.lastIndex;
+  }
+
+  // Push any remaining plain text
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
+}
+
 export function WorkExperience() {
   const [open, setOpen] = useState<number | null>(0);
 
@@ -73,7 +117,7 @@ export function WorkExperience() {
                 <div className="px-4 pb-5 pl-[3.75rem]">
                   <ul className="list-disc space-y-1.5 pl-4 text-[13px] leading-relaxed text-neutral-700 dark:text-neutral-300">
                     {exp.details.map((d, i) => (
-                      <li key={i}>{d}</li>
+                      <li key={i}>{renderDetail(d)}</li>
                     ))}
                   </ul>
                   <ul className="mt-3 flex flex-wrap gap-1.5">

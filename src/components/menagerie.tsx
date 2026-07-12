@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import { petSfx } from "@/lib/pet-sfx";
 
 type PetKind = "cat" | "dog" | "bird";
@@ -471,8 +470,6 @@ function Pet({
 }
 
 export function Menagerie() {
-  const pathname = usePathname();
-  const showNote = pathname === "/";
   const [asleep, setAsleep] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [feedThrown, setFeedThrown] = useState(false);
@@ -541,69 +538,81 @@ export function Menagerie() {
             registerFeed={registerFeed}
           />
         ))}
-        <button
-          className={`feed${feedThrown ? " is-thrown" : ""}`}
-          type="button"
-          aria-label="feed the pets"
-          title="feed the pets"
-          onClick={feedAll}
-        >
-          <svg aria-hidden="true" viewBox="0 0 22 12" className="feed__treat" fill="none">
-            <g fill="currentColor">
-              <rect height="4" width="10" x="6" y="4" rx="1.4" />
-              <circle cx="6" cy="4" r="2.4" />
-              <circle cx="6" cy="8" r="2.4" />
-              <circle cx="16" cy="4" r="2.4" />
-              <circle cx="16" cy="8" r="2.4" />
-            </g>
-          </svg>
-        </button>
-        <button
-          className={`feed-sound${soundOn ? " is-on" : ""}`}
-          type="button"
-          aria-label={soundOn ? "mute pet sounds" : "unmute pet sounds"}
-          aria-pressed={soundOn}
-          title={soundOn ? "mute sounds" : "unmute sounds"}
-          onClick={toggleSound}
-        >
-          {soundOn ? (
-            <svg aria-hidden="true" viewBox="0 0 24 24" className="feed-sound__icon">
-              <path
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11 5 6 9H3v6h3l5 4V5z"
-              />
-              <path
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
-              />
+        <div className="menagerie-controls" role="group" aria-label="Pet controls">
+          <button
+            className={`feed${feedThrown ? " is-thrown" : ""}`}
+            type="button"
+            aria-label="feed the pets"
+            title="feed the pets"
+            onClick={feedAll}
+          >
+            <svg aria-hidden="true" viewBox="0 0 22 12" className="feed__treat" fill="none">
+              <g fill="currentColor">
+                <rect height="4" width="10" x="6" y="4" rx="1.4" />
+                <circle cx="6" cy="4" r="2.4" />
+                <circle cx="6" cy="8" r="2.4" />
+                <circle cx="16" cy="4" r="2.4" />
+                <circle cx="16" cy="8" r="2.4" />
+              </g>
             </svg>
-          ) : (
-            <svg aria-hidden="true" viewBox="0 0 24 24" className="feed-sound__icon">
-              <path
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11 5 6 9H3v6h3l5 4V5zM22 9l-6 6M16 9l6 6"
-              />
-            </svg>
-          )}
-        </button>
+          </button>
+          <button
+            className={`feed-sound${soundOn ? " is-on" : ""}`}
+            type="button"
+            aria-label={soundOn ? "mute pet sounds" : "unmute pet sounds"}
+            aria-pressed={soundOn}
+            title={soundOn ? "mute sounds" : "unmute sounds"}
+            onClick={toggleSound}
+          >
+            {soundOn ? (
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="feed-sound__icon">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5 6 9H3v6h3l5 4V5z"
+                />
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"
+                />
+              </svg>
+            ) : (
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="feed-sound__icon">
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11 5 6 9H3v6h3l5 4V5zM22 9l-6 6M16 9l6 6"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
-      {showNote ? (
-        <p className="menagerie-note">
-          the office. <b>drag</b> them anywhere, <b>tap</b> to feed fish for the
-          cat, a bone for the dog, seed for the bird.
-        </p>
-      ) : null}
+
+      <p className="menagerie-note">
+        <span className="font-mono text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+          the office
+        </span>
+        <span className="text-neutral-300 dark:text-neutral-700" aria-hidden="true">
+          ·
+        </span>
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          <span className="font-medium text-gray-800 dark:text-gray-200">drag</span> anywhere
+          {" · "}
+          <span className="font-medium text-gray-800 dark:text-gray-200">tap</span> to feed
+          {" - "}
+          fish for the cat, a bone for the dog, seed for the bird.
+        </span>
+      </p>
     </div>
   );
 }

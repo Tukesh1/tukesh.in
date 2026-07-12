@@ -1,16 +1,11 @@
 import { siteMetadata } from "@/data/siteMetadata";
-import { Menagerie } from "@/components/menagerie";
 
 export function Footer() {
   return (
     <footer className="pt-8 pb-24">
       <div className="w-full border-t border-gray-200 dark:border-gray-800" />
 
-      <div className="mx-auto max-w-4xl px-4 mt-6">
-        <Menagerie />
-      </div>
-
-      <div className="mx-auto max-w-4xl px-4 mt-8 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div className="mx-auto max-w-4xl px-4 mt-6 flex flex-col md:flex-row items-center justify-between gap-3">
         <span
           role="img"
           aria-label={siteMetadata.author}

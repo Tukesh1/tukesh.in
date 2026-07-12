@@ -495,27 +495,41 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 /* ---------- Menagerie (office pets) ---------- */
 
 .menagerie-wrap {
-  margin-top: 0.25rem;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .menagerie {
   display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
-  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+}
+
+.menagerie-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-inline-start: 0.15rem;
 }
 
 .menagerie-note {
-  color: var(--pet-muted);
-  max-width: 34ch;
-  margin: 0.7rem 0 0;
-  font-size: 0.72rem;
-  line-height: 1.5;
-}
-
-.menagerie-note b {
-  color: var(--pet-ink);
-  font-weight: 600;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem 0.55rem;
+  max-width: 28rem;
+  margin: 0;
+  padding: 0 1rem;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .pet {
@@ -894,19 +908,20 @@ html.dark .mdx-content > p:first-of-type::first-letter {
     background 0.2s var(--ease-out);
   animation: petPop 0.5s var(--ease-spring) 0.92s both;
   border: none;
-  border-radius: 8px;
-  align-self: center;
-  align-items: center;
-  margin-inline-start: 0.35rem;
-  padding: 6px;
+  border-radius: 7px;
+  width: 28px;
+  height: 22px;
+  padding: 0;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
 .feed::after {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -6px;
 }
 
 .feed:hover {
@@ -916,7 +931,7 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 .feed:focus-visible {
   color: var(--pet-ink);
   outline: 2px solid var(--pet-ink);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .feed:active {
@@ -924,8 +939,8 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 }
 
 .feed__treat {
-  width: 19px;
-  height: 11px;
+  width: 15px;
+  height: 9px;
 }
 
 .feed-sound {
@@ -939,19 +954,20 @@ html.dark .mdx-content > p:first-of-type::first-letter {
     background 0.2s var(--ease-out);
   animation: petPop 0.5s var(--ease-spring) 1s both;
   border: none;
-  border-radius: 8px;
-  align-self: center;
+  border-radius: 7px;
+  width: 28px;
+  height: 22px;
+  padding: 0;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
-  display: inline-flex;
   position: relative;
 }
 
 .feed-sound::after {
   content: "";
   position: absolute;
-  inset: -8px;
+  inset: -6px;
 }
 
 .feed-sound:hover {
@@ -961,7 +977,7 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 .feed-sound:focus-visible {
   color: var(--pet-ink);
   outline: 2px solid var(--pet-ink);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .feed-sound:active {
@@ -973,8 +989,8 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 }
 
 .feed-sound__icon {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   display: block;
 }
 
@@ -1041,7 +1057,8 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 
 @media (prefers-reduced-motion: reduce) {
   .pet,
-  .feed {
+  .feed,
+  .feed-sound {
     animation: none;
   }
   .food-bit.drop {

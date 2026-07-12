@@ -11,6 +11,7 @@ import { SocialLink } from "@/components/social-link";
 import { Panel, PanelContent, PanelHeader, PanelTitle } from "@/components/panel";
 import { VerifiedIcon } from "@/components/icons";
 import { Typewriter } from "@/components/typewriter";
+import { Menagerie } from "@/components/menagerie";
 
 function FeaturedCard({ project }: { project: Project }) {
   const href = project.repo ?? project.live ?? "/projects";
@@ -222,7 +223,8 @@ export default function Home() {
           <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </Link>
-      
+
+      <Menagerie />
     </React.Fragment>
   );
 }

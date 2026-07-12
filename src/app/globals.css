@@ -550,10 +550,14 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   inset: -10px -6px -6px;
 }
 
-.pet:hover,
+.pet:hover {
+  color: var(--pet-ink);
+}
+
 .pet:focus-visible {
   color: var(--pet-ink);
-  outline: none;
+  outline: 2px solid var(--pet-ink);
+  outline-offset: 3px;
 }
 
 .pet--free {
@@ -905,10 +909,14 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   inset: -8px;
 }
 
-.feed:hover,
+.feed:hover {
+  color: var(--pet-ink);
+}
+
 .feed:focus-visible {
   color: var(--pet-ink);
-  outline: none;
+  outline: 2px solid var(--pet-ink);
+  outline-offset: 3px;
 }
 
 .feed:active {
@@ -946,10 +954,14 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   inset: -8px;
 }
 
-.feed-sound:hover,
+.feed-sound:hover {
+  color: var(--pet-ink);
+}
+
 .feed-sound:focus-visible {
   color: var(--pet-ink);
-  outline: none;
+  outline: 2px solid var(--pet-ink);
+  outline-offset: 3px;
 }
 
 .feed-sound:active {

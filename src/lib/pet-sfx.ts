@@ -12,6 +12,7 @@ type SoundMode = "soft" | "off";
 
 let ctx: AudioContext | null = null;
 let mode: SoundMode = "soft";
+let unlockBound = false;
 
 function readStoredMode(): SoundMode {
   try {
@@ -71,6 +72,9 @@ function playTone(name: SfxName, audio: AudioContext) {
 export const petSfx = {
   init() {
     mode = readStoredMode();
+    if (typeof window === "undefined") return;
+    if (unlockBound) return;
+    unlockBound = true;
     // Unlock AudioContext on first pointer interaction (browser autoplay policy)
     const unlock = () => {
       if (mode !== "off") ensureCtx();
@@ -89,10 +93,12 @@ export const petSfx = {
     } catch {
       /* ignore */
     }
-    if (next !== "off") {
-      ensureCtx();
-      this.play("tick");
+    if (next === "off") {
+      if (ctx && ctx.state === "running") void ctx.suspend();
+      return;
     }
+    ensureCtx();
+    this.play("tick");
   },
 
   toggle(): SoundMode {

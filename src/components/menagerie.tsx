@@ -515,12 +515,14 @@ export function Menagerie() {
 
   const feedAll = () => {
     setFeedThrown(true);
-    setTimeout(() => setFeedThrown(false), 500);
     petSfx.play("tick");
     feedAllTimers.current.forEach(clearTimeout);
-    feedAllTimers.current = PET_ORDER.map((kind, i) =>
-      setTimeout(() => feedFns.current.get(kind)?.(), 260 + 150 * i),
-    );
+    feedAllTimers.current = [
+      setTimeout(() => setFeedThrown(false), 500),
+      ...PET_ORDER.map((kind, i) =>
+        setTimeout(() => feedFns.current.get(kind)?.(), 260 + 150 * i),
+      ),
+    ];
   };
 
   const toggleSound = () => {

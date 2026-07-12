@@ -7,12 +7,29 @@
     --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
     --dot-color: rgba(0, 0, 0, 0.08);
+    --pet-paper: #fff;
+    --pet-ink: #111;
+    --pet-muted: rgba(17, 17, 17, 0.48);
+    --pet-hairline: rgba(17, 17, 17, 0.08);
+    --pet-card: rgba(17, 17, 17, 0.04);
+    --pet-shadow: rgba(0, 0, 0, 0.08);
+    --pet-tongue: #f4869a;
+    --pet-beak: #f4a531;
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .dark {
     --background: 210 6% 12%;
     --foreground: 213 31% 91%;
     --dot-color: rgba(255, 255, 255, 0.06);
+    --pet-paper: #1a1a20;
+    --pet-ink: #ececf1;
+    --pet-muted: rgba(236, 236, 241, 0.46);
+    --pet-hairline: rgba(255, 255, 255, 0.09);
+    --pet-card: rgba(255, 255, 255, 0.05);
+    --pet-shadow: rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -473,6 +490,577 @@ html.dark .mdx-content > p:first-of-type::first-letter {
 .view-toggle__icon {
   width: 14px;
   height: 14px;
+}
+
+/* ---------- Menagerie (office pets) ---------- */
+
+.menagerie-wrap {
+  margin-top: 0.25rem;
+}
+
+.menagerie {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.menagerie-note {
+  color: var(--pet-muted);
+  max-width: 34ch;
+  margin: 0.7rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.menagerie-note b {
+  color: var(--pet-ink);
+  font-weight: 600;
+}
+
+.pet {
+  color: var(--pet-muted);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.2s var(--ease-smooth);
+  animation: petPop 0.5s var(--ease-spring) both;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 0;
+  display: inline-flex;
+  position: relative;
+}
+
+.pet--cat {
+  animation-delay: 0.62s;
+}
+.pet--dog {
+  animation-delay: 0.72s;
+}
+.pet--bird {
+  animation-delay: 0.82s;
+}
+
+.pet::after {
+  content: "";
+  position: absolute;
+  inset: -10px -6px -6px;
+}
+
+.pet:hover,
+.pet:focus-visible {
+  color: var(--pet-ink);
+  outline: none;
+}
+
+.pet--free {
+  transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0);
+  animation: none !important;
+}
+
+.pet--free.is-dragging {
+  z-index: 200;
+  cursor: grabbing;
+}
+
+.pet__svg {
+  display: block;
+  overflow: visible;
+}
+
+.pet--cat .pet__svg {
+  width: 46px;
+  height: 37px;
+}
+.pet--dog .pet__svg {
+  width: 46px;
+  height: 44px;
+}
+.pet--bird .pet__svg {
+  width: 36px;
+  height: 38px;
+}
+
+@keyframes petPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.pet .eye {
+  transition: opacity 0.12s;
+}
+
+.pet.is-blinking .eye,
+.pet.is-asleep .eye {
+  opacity: 0;
+}
+
+.pet .eyes {
+  transform-box: fill-box;
+  transform-origin: 50%;
+}
+
+.pet--cat:not(.is-asleep) .eyes {
+  animation: 9s ease-in-out 2s infinite eyeLook;
+}
+
+@keyframes eyeLook {
+  0%,
+  16%,
+  52%,
+  88%,
+  to {
+    transform: translate(0);
+  }
+  26%,
+  38% {
+    transform: translate(-1.2px);
+  }
+  62%,
+  74% {
+    transform: translate(1.2px);
+  }
+}
+
+.pet .body {
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+.pet.is-eating .eye {
+  opacity: 0;
+}
+
+.pet.is-eating .body {
+  animation: munch 0.72s var(--ease-smooth);
+}
+
+@keyframes munch {
+  0%,
+  to {
+    transform: scaleY(1);
+  }
+  20%,
+  60% {
+    transform: scaleY(0.9);
+  }
+  40%,
+  80% {
+    transform: scaleY(1);
+  }
+}
+
+.cat-tail {
+  transform-box: fill-box;
+  transform-origin: 0 100%;
+}
+
+.pet--cat:not(.is-asleep) .cat-tail {
+  animation: 8s ease-in-out 3s infinite tailSway;
+}
+
+@keyframes tailSway {
+  0%,
+  38%,
+  to {
+    transform: rotate(0);
+  }
+  12% {
+    transform: rotate(6deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+}
+
+.dog-tail {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+}
+
+.pet--dog:not(.is-asleep) .dog-tail {
+  animation: 0.6s ease-in-out infinite dogWag;
+}
+
+.pet--dog.is-eating .dog-tail {
+  animation: 0.22s ease-in-out infinite dogWag;
+}
+
+@keyframes dogWag {
+  0%,
+  to {
+    transform: rotate(-11deg);
+  }
+  50% {
+    transform: rotate(12deg);
+  }
+}
+
+.dog-tongue {
+  transform-box: fill-box;
+  transform-origin: top;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s var(--ease-spring);
+  transform: scaleY(0.2);
+}
+
+.pet--dog:hover .dog-tongue,
+.pet--dog.is-eating .dog-tongue {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.pet--dog:not(.is-asleep) .dog-ear {
+  transform-box: fill-box;
+  transform-origin: top;
+}
+
+.pet--bird .body {
+  transform-origin: bottom;
+}
+
+.pet--bird:not(.is-asleep) .body {
+  animation: 1.9s ease-in-out infinite birdBob;
+}
+
+@keyframes birdBob {
+  0%,
+  to {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.bird-wing {
+  transform-box: fill-box;
+  transform-origin: 0 0;
+}
+
+.pet--bird.is-eating .bird-wing {
+  animation: 0.16s ease-in-out 4 flap;
+}
+
+@keyframes flap {
+  0%,
+  to {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-22deg);
+  }
+}
+
+.dreams {
+  opacity: 0;
+  transition: opacity 0.24s;
+}
+
+.pet.is-asleep .dreams {
+  opacity: 1;
+}
+
+.pet.is-asleep .body {
+  animation: 4.5s ease-in-out infinite petSleep;
+}
+
+@keyframes petSleep {
+  0%,
+  to {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+}
+
+.pet .z {
+  opacity: 0;
+}
+
+.pet.is-asleep .z-1 {
+  animation: 3s ease-out infinite zFloat1;
+}
+
+.pet.is-asleep .z-2 {
+  animation: 3s ease-out 1s infinite zFloat2;
+}
+
+@keyframes zFloat1 {
+  0% {
+    opacity: 0;
+    transform: translate(0) scale(0.7);
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate(4px, -14px) scale(1);
+  }
+}
+
+@keyframes zFloat2 {
+  0% {
+    opacity: 0;
+    transform: translate(0) scale(0.6);
+  }
+  10%,
+  80% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate(6px, -16px) scale(0.9);
+  }
+}
+
+.bubble.pet__bubble {
+  background: var(--pet-paper);
+  box-shadow:
+    inset 0 0 0 1px var(--pet-hairline),
+    0 2px 6px var(--pet-shadow);
+  white-space: nowrap;
+  color: var(--pet-ink);
+  opacity: 0;
+  transform-origin: bottom;
+  transition:
+    opacity 0.22s var(--ease-smooth),
+    transform 0.26s var(--ease-spring);
+  pointer-events: none;
+  z-index: 20;
+  border-radius: 8px 8px 8px 2px;
+  padding: 4px 8px 3px;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translate(-50%, 3px) scale(0.9);
+}
+
+.bubble.pet__bubble.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.bubble.pet__bubble span {
+  white-space: pre;
+  opacity: 0;
+  filter: blur(2px);
+  display: inline-block;
+  transform: translateY(3px);
+}
+
+.bubble.pet__bubble.is-visible span {
+  animation: bubbleChar 0.26s var(--ease-smooth) forwards;
+  animation-delay: calc(var(--i) * 28ms);
+}
+
+@keyframes bubbleChar {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.feed {
+  background: var(--pet-card);
+  box-shadow: inset 0 0 0 1px var(--pet-hairline);
+  color: var(--pet-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s var(--ease-smooth),
+    transform 0.14s var(--ease-smooth),
+    background 0.2s var(--ease-out);
+  animation: petPop 0.5s var(--ease-spring) 0.92s both;
+  border: none;
+  border-radius: 8px;
+  align-self: center;
+  align-items: center;
+  margin-inline-start: 0.35rem;
+  padding: 6px;
+  display: inline-flex;
+  position: relative;
+}
+
+.feed::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+.feed:hover,
+.feed:focus-visible {
+  color: var(--pet-ink);
+  outline: none;
+}
+
+.feed:active {
+  transform: scale(0.9);
+}
+
+.feed__treat {
+  width: 19px;
+  height: 11px;
+}
+
+.feed-sound {
+  background: var(--pet-card);
+  box-shadow: inset 0 0 0 1px var(--pet-hairline);
+  color: var(--pet-muted);
+  cursor: pointer;
+  transition:
+    color 0.2s var(--ease-smooth),
+    transform 0.14s var(--ease-smooth),
+    background 0.2s var(--ease-out);
+  animation: petPop 0.5s var(--ease-spring) 1s both;
+  border: none;
+  border-radius: 8px;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  display: inline-flex;
+  position: relative;
+}
+
+.feed-sound::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+}
+
+.feed-sound:hover,
+.feed-sound:focus-visible {
+  color: var(--pet-ink);
+  outline: none;
+}
+
+.feed-sound:active {
+  transform: scale(0.9);
+}
+
+.feed-sound.is-on {
+  color: var(--pet-ink);
+}
+
+.feed-sound__icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.feed.is-thrown .feed__treat {
+  animation: 0.5s ease-in forwards treatThrow;
+}
+
+@keyframes treatThrow {
+  30% {
+    opacity: 1;
+    transform: translate(-14px, -8px) rotate(-16deg);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-40px, 4px) rotate(-40deg);
+  }
+}
+
+.food-bit {
+  z-index: 210;
+  pointer-events: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  font-size: 19px;
+  position: fixed;
+  transform: translate(-50%, -18px) scale(0.4);
+}
+
+.food-bit.drop {
+  animation: foodDrop 0.72s var(--ease-out) forwards;
+}
+
+@keyframes foodDrop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -18px) scale(0.4) rotate(-12deg);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, 10px) scale(1.05) rotate(6deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translate(-50%, 6px) scale(1) rotate(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 14px) scale(0.2) rotate(0);
+  }
+}
+
+@media (width <= 480px) {
+  .pet--bird .bubble.pet__bubble {
+    transform-origin: 100% 100%;
+    border-radius: 8px 8px 2px 8px;
+    left: auto;
+    right: -6px;
+    transform: translate(0, 3px) scale(0.9);
+  }
+  .pet--bird .bubble.pet__bubble.is-visible {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet,
+  .feed {
+    animation: none;
+  }
+  .food-bit.drop {
+    opacity: 1;
+    animation: none;
+    transform: translate(-50%, 6px) scale(1);
+  }
+  .pet .eye,
+  .dreams,
+  .dog-tongue,
+  .bird-wing {
+    opacity: 1;
+  }
+  .dog-tongue {
+    transform: none;
+  }
+  .pet.is-asleep .eye,
+  .pet:not(.is-asleep) .dreams {
+    opacity: 0;
+  }
+  .pet--cat:not(.is-asleep) .eyes,
+  .pet--cat:not(.is-asleep) .cat-tail,
+  .pet--dog:not(.is-asleep) .dog-tail,
+  .pet--bird:not(.is-asleep) .body,
+  .pet.is-asleep .body,
+  .pet.is-asleep .z-1,
+  .pet.is-asleep .z-2,
+  .pet.is-eating .body,
+  .bubble.pet__bubble.is-visible span {
+    animation: none;
+  }
 }
 
 /* ---------- Machine View ---------- */

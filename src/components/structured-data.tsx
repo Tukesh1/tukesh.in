@@ -14,7 +14,7 @@ export function StructuredData({ type }: StructuredDataProps) {
     url: siteMetadata.siteUrl,
     email: siteMetadata.social.email,
     image: `${siteMetadata.siteUrl}/assets/profile.png`,
-    jobTitle: "Frontend Developer & AI Engineer",
+    jobTitle: "Software Engineer & AI Developer Tools",
     description:
       "Frontend Developer & AI Engineer creating responsive web applications and AI-powered solutions",
     sameAs: [
@@ -23,8 +23,15 @@ export function StructuredData({ type }: StructuredDataProps) {
       siteMetadata.social.x,
     ],
     knowsAbout: [
-      "React",
+      "AI Developer Tools",
       "TypeScript",
+      "Go",
+      "React",
+      "Next.js",
+      "LLMs",
+      "GitHub Actions",
+      "CLI",
+      "Code Review",
       "Node.js",
       "JavaScript",
       "Web Development",
@@ -35,8 +42,7 @@ export function StructuredData({ type }: StructuredDataProps) {
       "Next.js",
       "Tailwind CSS",
       "Python",
-      "Machine Learning",
-      "AI",
+      "Open Source",
     ],
     alumniOf: {
       "@type": "EducationalOrganization",

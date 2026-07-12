@@ -85,7 +85,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <React.Fragment>
-      {/* Hero */}
       <Panel className="mt-6">
         <PanelHeader className="lg:flex lg:items-start lg:gap-10">
           <div className="lg:w-2/3">
@@ -125,7 +124,7 @@ export default function Home() {
               >
                 codexp-ai
               </a>
-              {" "}— an AI-powered platform that explains, documents, and
+              {" "}- an AI-powered platform that explains, documents, and
               visualizes source code, helping developers understand and onboard
               to codebases faster. If you&apos;d like to collaborate, please{" "}
               <a
@@ -136,8 +135,9 @@ export default function Home() {
               </a>{" "}
               or reach out on any of my social handles.
             </p>
+            
 
-            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 mb-4 mt-6">
+            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 mt-5">
               {SOCIALS.map((social) => (
                 <SocialLink
                   key={social.label}
@@ -146,9 +146,6 @@ export default function Home() {
                   icon={social.icon}
                 />
               ))}
-            </div>
-
-            <div>
               <a
                 href="/resume.pdf"
                 target="_blank"
@@ -176,6 +173,30 @@ export default function Home() {
         </PanelContent>
       </Panel>
 
+
+      {/* Featured work */}
+      {FEATURED_PROJECTS.length > 0 && (
+        <Panel id="work" className="mt-8">
+          <PanelHeader>
+            <PanelTitle className="text-xl font-bold flex items-center justify-between">
+              <span>Shipping now</span>
+              <Link
+                href="/projects"
+                className="text-xs font-mono font-normal text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 inline-flex items-center gap-1 transition-colors"
+              >
+                all projects <ArrowUpRight className="size-3" />
+              </Link>
+            </PanelTitle>
+          </PanelHeader>
+          <PanelContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {FEATURED_PROJECTS.slice(0, 2).map((project) => (
+                <FeaturedCard key={project.title} project={project} />
+              ))}
+            </div>
+          </PanelContent>
+        </Panel>
+      )}
       {/* Guestbook strip */}
       <Link
         href="/guestbook"
@@ -193,7 +214,7 @@ export default function Home() {
             ·
           </span>
           <span className="truncate text-sm text-gray-700 dark:text-gray-300">
-            Leave a note — a hello, a recommendation, or a memory.
+            Leave a note - a hello, a recommendation, or a memory.
           </span>
         </div>
         <span className="shrink-0 inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
@@ -201,33 +222,7 @@ export default function Home() {
           <ArrowUpRight className="size-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
         </span>
       </Link>
-
-      {/* Featured work */}
-      {FEATURED_PROJECTS.length > 0 && (
-        <Panel id="work" className="mt-8">
-          <PanelHeader>
-            <PanelTitle className="text-xl font-bold flex items-center justify-between">
-              <span>Cool Stuff I&apos;m Working On</span>
-              <Link
-                href="/projects"
-                className="text-xs font-mono font-normal text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 inline-flex items-center gap-1 transition-colors"
-              >
-                all projects <ArrowUpRight className="size-3" />
-              </Link>
-            </PanelTitle>
-          </PanelHeader>
-          <PanelContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {FEATURED_PROJECTS.slice(0, 2).map((project) => (
-                <FeaturedCard
-                  key={project.title}
-                  project={project}
-                />
-              ))}
-            </div>
-          </PanelContent>
-        </Panel>
-      )}
+      
     </React.Fragment>
   );
 }

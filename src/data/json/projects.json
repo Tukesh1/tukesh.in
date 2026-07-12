@@ -34,11 +34,12 @@
     "category": "web",
     "tags": ["Next.js", "TypeScript", "AI", "LLM"],
     "description": [
-      "AI-platform that explains, documents, and visualizes source code.",
-      "Helps developers understand and onboard to unfamiliar codebases faster.",
-      "Generates instant docs, diagrams, and repo Q&A."
+      "AI platform that explains, documents, and visualizes source code so new contributors onboard faster.",
+      "Instant docs, diagrams, and repo Q&A from the codebase itself.",
+      "Built for teams who inherit repos faster than they can read them."
     ],
     "tagline": "Explain, document, and visualize any codebase with instant docs, diagrams, and Q&A.",
+    "thumbnail": "https://opengraph.githubassets.com/1/Tukesh1/codexp-ai",
     "repo": "https://github.com/Tukesh1/codexp-ai",
     "featured": true,
     "period": { "start": "10. 2025" }
@@ -70,7 +71,7 @@
     ],
     "thumbnail": "/assets/project/tracode.png",
     "repo": "https://github.com/tukesh1/tracode",
-    "featured": true,
+    "featured": false,
     "period": { "start": "11. 2024" }
   },
   {

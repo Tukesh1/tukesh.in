@@ -7,6 +7,16 @@
   "keywords": [
     "Tukesh Kumar",
     "Tukesh",
+    "AI Developer Tools",
+    "Software Engineer",
+    "React",
+    "TypeScript",
+    "Next.js",
+    "Go",
+    "CLI",
+    "LLM",
+    "Code Review Agent",
+    "Open Source",
     "Frontend Developer",
     "AI Engineer",
     "React Developer",
@@ -40,7 +50,7 @@
     },
     "about": {
       "title": "About",
-      "description": "Frontend Developer & AI Engineer, my skills in React, TypeScript, Python, and experience building AI-powered web applications."
+      "description": "Software engineer building AI developer tools with React, TypeScript, Go, and LLMs. Experience shipping CLIs, agents, and product UIs."
     },
     "projects": {
       "title": "Projects",
@@ -48,7 +58,7 @@
     },
     "activity": {
       "title": "Activity",
-      "description": "A live log of what I'm shipping — commits, pull requests, problem solves, and VS Code coding sessions. Auto-fetched from GitHub and WakaTime."
+      "description": "A live log of what I'm shipping i.e. commits, pull requests, problem solves, and VS Code coding sessions. Auto-fetched from GitHub and WakaTime."
     },
     "guestbook": {
       "title": "Guestbook",

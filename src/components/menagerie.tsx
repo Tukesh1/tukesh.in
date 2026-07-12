@@ -598,7 +598,7 @@ export function Menagerie() {
       </div>
       {showNote ? (
         <p className="menagerie-note">
-          the office. <b>drag</b> them anywhere, <b>tap</b> to feed — fish for the
+          the office. <b>drag</b> them anywhere, <b>tap</b> to feed fish for the
           cat, a bone for the dog, seed for the bird.
         </p>
       ) : null}

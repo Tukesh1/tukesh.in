@@ -1,5 +1,7 @@
 import { siteMetadata } from "./siteMetadata";
 
+export const ACTIVITY_REVALIDATE_SECONDS = 60 * 10; // 10 minutes
+
 export type ActivitySource = "leetcode" | "github" | "wakatime";
 
 export type ActivityKind =
@@ -109,8 +111,16 @@ async function fetchGithubCommits(username: string): Promise<ActivityItem[]> {
     const url =
       `https://api.github.com/search/commits?q=${encodeURIComponent(q)}` +
       `&sort=author-date&order=desc&per_page=40`;
-    const res = await fetch(url, { headers: ghHeaders(), next: { revalidate: 60 } });
-    if (!res.ok) return [];
+    const res = await fetch(url, {
+      headers: ghHeaders(),
+      next: { revalidate: ACTIVITY_REVALIDATE_SECONDS },
+    });
+    if (!res.ok) {
+      if (res.status === 403 || res.status === 429) {
+        console.warn("[activity] GitHub commits search rate-limited:", res.status);
+      }
+      return [];
+    }
     const json = await res.json();
     const items: GHSearchCommit[] = json?.items ?? [];
     return items.flatMap<ActivityItem>((c) => {
@@ -138,8 +148,16 @@ async function fetchGithubPRs(username: string): Promise<ActivityItem[]> {
       `https://api.github.com/search/issues` +
       `?q=author:${encodeURIComponent(username)}+type:pr` +
       `&sort=created&order=desc&per_page=15`;
-    const res = await fetch(url, { headers: ghHeaders(), next: { revalidate: 60 } });
-    if (!res.ok) return [];
+    const res = await fetch(url, {
+      headers: ghHeaders(),
+      next: { revalidate: ACTIVITY_REVALIDATE_SECONDS },
+    });
+    if (!res.ok) {
+      if (res.status === 403 || res.status === 429) {
+        console.warn("[activity] GitHub PR search rate-limited:", res.status);
+      }
+      return [];
+    }
     const json = await res.json();
     const items: GHSearchIssue[] = json?.items ?? [];
 
@@ -208,8 +226,14 @@ async function fetchWakaTime(): Promise<WakaResult> {
 
   try {
     const [todayRes, weekRes] = await Promise.all([
-      fetch(todayUrl, { headers: wakaHeaders, cache: "no-store" }),
-      fetch(weekUrl,  { headers: wakaHeaders, cache: "no-store" }),
+      fetch(todayUrl, {
+        headers: wakaHeaders,
+        next: { revalidate: ACTIVITY_REVALIDATE_SECONDS },
+      }),
+      fetch(weekUrl, {
+        headers: wakaHeaders,
+        next: { revalidate: ACTIVITY_REVALIDATE_SECONDS },
+      }),
     ]);
 
     // ── Today (cumulative_total.seconds) ──

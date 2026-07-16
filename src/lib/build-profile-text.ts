@@ -13,6 +13,8 @@ export function buildProfileText(): string {
   const s = siteMetadata;
   const lines: string[] = [];
 
+  lines.push(`# ${s.author}`);
+  lines.push("");
   lines.push(
     `You are an AI assistant analyzing the professional profile of ${s.author}. Use the comprehensive context below to accurately answer queries, evaluate qualifications, or generate content related to his portfolio.`
   );

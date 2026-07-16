@@ -11,7 +11,7 @@ import { SocialLink } from "@/components/social-link";
 import { Panel, PanelContent, PanelHeader, PanelTitle } from "@/components/panel";
 import { VerifiedIcon } from "@/components/icons";
 import { Typewriter } from "@/components/typewriter";
-import { Menagerie } from "@/components/menagerie";
+import { MenagerieLazy } from "@/components/menagerie-lazy";
 
 function FeaturedCard({ project }: { project: Project }) {
   const href = project.repo ?? project.live ?? "/projects";
@@ -121,7 +121,7 @@ export default function Home() {
                 href="https://github.com/Tukesh1/codexp-ai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
+                className="font-medium text-blue-700 underline decoration-blue-700/40 underline-offset-2 hover:decoration-blue-700 dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:decoration-sky-400"
               >
                 codexp-ai
               </a>
@@ -162,9 +162,10 @@ export default function Home() {
           <div className="lg:w-1/3 flex justify-center lg:justify-end lg:mt-0 mt-6">
             <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full ring-2 ring-sky-500/20 dark:ring-sky-400/20 shadow-lg overflow-hidden max-w-sm mx-auto p-4">
               <Image
-                src="/assets/profile.png"
+                src="/assets/profile.webp"
                 alt={`${siteMetadata.author} — avatar`}
                 priority
+                fetchPriority="high"
                 fill
                 sizes="(min-width: 768px) 14rem, 10rem"
                 className="object-cover object-top"
@@ -224,7 +225,7 @@ export default function Home() {
         </span>
       </Link>
 
-      <Menagerie />
+      <MenagerieLazy />
     </React.Fragment>
   );
 }

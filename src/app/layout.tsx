@@ -93,8 +93,6 @@ export default function RootLayout({
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta name="google-site-verification" content="xkBWbb9OnEAZEfrakVYXOpIcFlAH5qEA66FtywraJfI" />
         <meta name="dmca-site-verification" content="K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090" />
-        <link rel="preconnect" href="https://opengraph.githubassets.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://opengraph.githubassets.com" />
       </head>
       <body
         className={cn(
@@ -120,9 +118,9 @@ export default function RootLayout({
         </ThemeProvider>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-P36W5PCJC2"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

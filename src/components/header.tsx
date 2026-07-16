@@ -1,5 +1,4 @@
 "use client";
-import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "../lib/utils";
@@ -23,6 +22,7 @@ export function Header() {
         <nav
           className="fade relative scroll-pr-6 px-0 pb-0 md:relative md:overflow-auto"
           id="nav"
+          aria-label="Primary"
         >
           <div className="flex w-full flex-row justify-between items-center">
             <div className="flex flex-row justify-between">
@@ -32,24 +32,25 @@ export function Header() {
                   <Link
                     key={path}
                     href={path}
+                    // /activity hits GitHub Search + WakaTime on regen — don't
+                    // wake ISR via viewport prefetch from every page.
+                    prefetch={path === "/activity" ? false : undefined}
                     className={cn(
-                      "flex align-middle transition-all hover:text-neutral-800 dark:hover:text-neutral-200",
-                      !isActive && "text-neutral-500"
+                      "flex align-middle transition-colors hover:text-neutral-900 dark:hover:text-neutral-100",
+                      isActive
+                        ? "text-neutral-900 dark:text-neutral-100"
+                        : "text-neutral-700 dark:text-neutral-300"
                     )}
                   >
                     <span className="relative px-2 py-1">
                       {name}
-                      {isActive && (
-                        <motion.div
-                          className="absolute inset-0 top-7 z-[-1] mx-2 h-[1px] bg-neutral-200 dark:bg-neutral-800"
-                          layoutId="sidebar"
-                          transition={{
-                            type: "spring",
-                            stiffness: 350,
-                            damping: 30,
-                          }}
-                        />
-                      )}
+                      <span
+                        className={cn(
+                          "absolute inset-x-2 bottom-0 h-px bg-neutral-400 dark:bg-neutral-500 transition-opacity",
+                          isActive ? "opacity-100" : "opacity-0"
+                        )}
+                        aria-hidden="true"
+                      />
                     </span>
                   </Link>
                 );

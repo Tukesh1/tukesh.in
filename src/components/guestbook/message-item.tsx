@@ -94,7 +94,6 @@ export function MessageItem({
             width={36}
             height={36}
             className="size-9 shrink-0 rounded-full border border-gray-200 dark:border-gray-800"
-            unoptimized
           />
         ) : (
           <div className="size-9 shrink-0 rounded-full bg-gray-200 dark:bg-gray-800" />

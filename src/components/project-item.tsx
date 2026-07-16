@@ -28,6 +28,7 @@ interface ProjectItemProps {
 export function ProjectItem({ project, className }: ProjectItemProps) {
   const { start, end } = project.period;
   const isOngoing = !end;
+  const [open, setOpen] = React.useState(Boolean(project.isExpanded));
   const points: string[] = Array.isArray(project.description)
     ? project.description
     : project.description
@@ -35,7 +36,7 @@ export function ProjectItem({ project, className }: ProjectItemProps) {
     : [];
 
   return (
-    <Collapsible.Root defaultOpen={project.isExpanded} asChild>
+    <Collapsible.Root open={open} onOpenChange={setOpen} asChild>
       <div className={className}>
         <div className="flex items-center">
           {/* Project Icon */}
@@ -112,15 +113,16 @@ export function ProjectItem({ project, className }: ProjectItemProps) {
                 {project.thumbnail ? (
                   <div className="w-full max-w-[220px] md:max-w-none">
                     <div className="relative w-full aspect-video rounded-md overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                      <Image
-                        src={project.thumbnail}
-                        alt={`Thumbnail of ${project.title}`}
-                        fill
-                        loading="eager"
-                        priority
-                        className="object-cover"
-                        unoptimized
-                      />
+                      {open && (
+                        <Image
+                          src={project.thumbnail}
+                          alt={`Thumbnail of ${project.title}`}
+                          fill
+                          sizes="(min-width: 768px) 220px, 80vw"
+                          loading="lazy"
+                          className="object-cover"
+                        />
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -149,7 +151,6 @@ export function ProjectItem({ project, className }: ProjectItemProps) {
                         <span className="inline-flex items-center rounded-lg border border-transparent bg-zinc-50 px-2 py-0.5 font-mono text-xs text-gray-600 dark:bg-zinc-900 dark:text-gray-400">
                           {skill}
                         </span>
-
                       </li>
                     ))}
                   </ul>

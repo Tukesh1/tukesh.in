@@ -23,7 +23,9 @@ import {
 } from "../../data/activity";
 import { Panel, PanelContent, PanelHeader } from "../../components/panel";
 
-export const revalidate = 60; // refresh every minute so new pushes show up quickly
+// Must be a literal — Next can't resolve imported identifiers for segment config.
+// Keep in sync with ACTIVITY_REVALIDATE_SECONDS in src/data/activity.ts.
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: siteMetadata.pages.activity.title,

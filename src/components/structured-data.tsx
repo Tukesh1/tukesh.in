@@ -13,7 +13,7 @@ export function StructuredData({ type }: StructuredDataProps) {
     name: siteMetadata.author,
     url: siteMetadata.siteUrl,
     email: siteMetadata.social.email,
-    image: `${siteMetadata.siteUrl}/assets/profile.png`,
+    image: `${siteMetadata.siteUrl}/assets/profile.jpg`,
     jobTitle: "Software Engineer & AI Developer Tools",
     description:
       "Frontend Developer & AI Engineer creating responsive web applications and AI-powered solutions",
@@ -95,7 +95,7 @@ export function StructuredData({ type }: StructuredDataProps) {
       "@id": `${siteMetadata.siteUrl}/#person`,
       name: siteMetadata.author,
       url: siteMetadata.siteUrl,
-      image: `${siteMetadata.siteUrl}/assets/profile.png`,
+      image: `${siteMetadata.siteUrl}/assets/profile.jpg`,
       jobTitle: "Frontend Developer & AI Engineer",
       description: siteMetadata.pages.home.description,
       sameAs: [

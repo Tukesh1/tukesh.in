@@ -160,15 +160,15 @@ export default function Home() {
           </div>
 
           <div className="lg:w-1/3 flex justify-center lg:justify-end lg:mt-0 mt-6">
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full ring-2 ring-sky-500/20 dark:ring-sky-400/20 shadow-lg overflow-hidden max-w-sm mx-auto p-4">
+            <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full overflow-hidden shadow-xl ring-1 ring-black/5 dark:ring-white/10 outline outline-2 outline-offset-2 outline-sky-500/30 dark:outline-sky-400/30 max-w-sm mx-auto">
               <Image
-                src="/assets/profile.webp"
+                src="/assets/tukesh-profile.jpeg"
                 alt={`${siteMetadata.author} — avatar`}
                 priority
                 fetchPriority="high"
                 fill
-                sizes="(min-width: 768px) 14rem, 10rem"
-                className="object-cover object-top"
+                sizes="(min-width: 768px) 15rem, 13rem"
+                className="object-cover object-center"
               />
             </div>
           </div>

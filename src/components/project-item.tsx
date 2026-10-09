@@ -57,7 +57,10 @@ export function ProjectItem({ project, className }: ProjectItemProps) {
 
           {/* Project Content */}
           <div className="flex-1 border-l border-dashed border-gray-300 dark:border-gray-600">
-            <Collapsible.Trigger className="group/project flex w-full items-center gap-4 p-4 pr-2 text-left select-none">
+            <Collapsible.Trigger
+              data-strobi-cta={project.id}
+              className="group/project flex w-full items-center gap-4 p-4 pr-2 text-left select-none"
+            >
               <div className="flex-1">
                 <h3 className="mb-1 leading-snug font-medium text-balance">
                   {project.title}

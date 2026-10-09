@@ -35,6 +35,7 @@ export function Header() {
                     // /activity hits GitHub Search + WakaTime on regen — don't
                     // wake ISR via viewport prefetch from every page.
                     prefetch={path === "/activity" ? false : undefined}
+                    data-strobi-cta={`nav-${name}`}
                     className={cn(
                       "flex align-middle transition-colors hover:text-neutral-900 dark:hover:text-neutral-100",
                       isActive

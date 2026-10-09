@@ -20,6 +20,7 @@ export function PostItem({ post }: PostItemProps) {
   return (
     <Link
       href={`/post/${post.slug}`}
+      data-strobi-cta="post"
       className="group flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-0 text-balance text-sm sm:text-base md:text-lg font-medium text-gray-900 dark:text-white py-2 sm:py-1"
     >
       <span className="mr-2 hidden h-1.5 w-1.5 bg-gray-900 dark:bg-white transition-all group-hover:h-5 group-hover:bg-yellow-400 sm:block" />

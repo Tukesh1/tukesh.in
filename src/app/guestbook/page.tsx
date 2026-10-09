@@ -82,7 +82,10 @@ export default async function GuestbookPage() {
               <MessageSquareText className="size-4 text-teal-600 dark:text-teal-400" />
             </div>
             <div className="min-w-0">
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h1
+                data-strobi-cta="guestbook"
+                className="text-xl font-semibold text-gray-900 dark:text-white"
+              >
                 Guestbook
               </h1>
               <p className="mt-1 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">

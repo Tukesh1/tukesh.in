@@ -49,7 +49,11 @@ interface SectionProps {
 function Section({ icon, title, children, bodyClassName }: SectionProps) {
   const id = title.toLowerCase();
   return (
-    <section id={id} className="mt-12 first:mt-0 max-w-4xl mx-auto scroll-mt-24">
+    <section
+      id={id}
+      data-strobi-cta={id}
+      className="mt-12 first:mt-0 max-w-4xl mx-auto scroll-mt-24"
+    >
       <Panel>
         <PanelHeader>
           <div className="flex items-center gap-2 hover:text-teal-600 hover:dark:text-teal-400 transition-colors">

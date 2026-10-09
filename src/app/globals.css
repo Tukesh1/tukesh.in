@@ -1105,6 +1105,128 @@ html.dark .mdx-content > p:first-of-type::first-letter {
   color: #c9d1d9;
 }
 
+/* ---------- Strobi companion ---------- */
+
+.strobi-dock {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: 88px;
+  height: 88px;
+  pointer-events: none;
+  overflow: visible;
+  will-change: transform;
+}
+
+.strobi-dock.is-following,
+.strobi-dock.is-following .strobi-dock__face {
+  pointer-events: none;
+}
+
+.strobi-dock__face {
+  display: block;
+  width: 88px;
+  height: 88px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 9999px;
+  pointer-events: auto;
+  filter: drop-shadow(0 8px 16px rgba(91, 127, 229, 0.28));
+}
+
+.strobi-dock__avatar {
+  display: block;
+}
+
+.strobi-whisper {
+  position: absolute;
+  top: 50%;
+  width: min(240px, calc(100vw - 120px));
+  padding: 8px 10px 9px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.strobi-whisper--right {
+  left: calc(100% + 12px);
+  border-radius: 12px 12px 12px 4px;
+}
+
+.strobi-whisper--left {
+  right: calc(100% + 12px);
+  border-radius: 12px 12px 4px 12px;
+}
+
+.strobi-whisper--top {
+  top: auto;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 12px 12px 4px 12px;
+}
+
+.strobi-whisper--bottom {
+  top: calc(100% + 10px);
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  border-radius: 4px 12px 12px 12px;
+}
+
+.dark .strobi-whisper {
+  background: rgba(18, 18, 22, 0.94);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.strobi-whisper__kicker {
+  margin: 0 0 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5b7fe5;
+}
+
+.strobi-whisper__text {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #374151;
+}
+
+.dark .strobi-whisper__text {
+  color: #d1d5db;
+}
+
+@media (max-width: 640px) {
+  .strobi-whisper {
+    top: auto;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    right: auto;
+    width: min(220px, calc(100vw - 24px));
+    transform: translateX(-50%);
+    border-radius: 12px 12px 12px 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strobi-dock {
+    will-change: auto;
+  }
+}
+
 /* Content area */
 .machine-view__content {
   padding: 24px 0 100px 0; /* Add bottom padding so text isn't hidden by the bottom toggle */

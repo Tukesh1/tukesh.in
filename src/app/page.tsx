@@ -27,6 +27,7 @@ function FeaturedCard({ project }: { project: Project }) {
       href={href}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
+      data-strobi-cta={project.title.toLowerCase().replace(/\s+/g, "-")}
       className="group relative flex h-full flex-col gap-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg p-4 transition-all hover:border-gray-400 dark:hover:border-gray-600 hover:-translate-y-0.5 hover:shadow-sm"
     >
       <div className="flex items-start justify-between gap-2">
@@ -121,6 +122,7 @@ export default function Home() {
                 href="https://github.com/Tukesh1/codexp-ai"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-strobi-cta="codexp-ai"
                 className="font-medium text-blue-700 underline decoration-blue-700/40 underline-offset-2 hover:decoration-blue-700 dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:decoration-sky-400"
               >
                 codexp-ai
@@ -130,6 +132,7 @@ export default function Home() {
               to codebases faster. If you&apos;d like to collaborate, please{" "}
               <a
                 href={`mailto:${siteMetadata.social.email}`}
+                data-strobi-cta="email"
                 className="border-b inline-block"
               >
                 send me an email
@@ -145,12 +148,14 @@ export default function Home() {
                   aria-label={`Follow on ${social.label}`}
                   href={social.href}
                   icon={social.icon}
+                  data-strobi-cta={`social-${social.label.toLowerCase()}`}
                 />
               ))}
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-strobi-cta="resume"
                 className="inline-flex items-center gap-1.5 font-bold border-b transition-all text-gray-400 dark:text-gray-300 hover:text-neutral-800 dark:hover:text-neutral-200"
               >
                 <FileText className="size-4" aria-hidden="true" />
@@ -184,6 +189,7 @@ export default function Home() {
               <span>Shipping now</span>
               <Link
                 href="/projects"
+                data-strobi-cta="projects"
                 className="text-xs font-mono font-normal text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 inline-flex items-center gap-1 transition-colors"
               >
                 all projects <ArrowUpRight className="size-3" />
@@ -202,6 +208,7 @@ export default function Home() {
       {/* Guestbook strip */}
       <Link
         href="/guestbook"
+        data-strobi-cta="guestbook"
         className="group mt-8 flex items-center justify-between gap-3 border border-gray-200 dark:border-gray-800 bg-white dark:bg-dark-bg px-4 py-3 transition-colors hover:border-teal-500/40 hover:bg-teal-500/[0.03]"
       >
         <div className="flex min-w-0 items-center gap-2.5">

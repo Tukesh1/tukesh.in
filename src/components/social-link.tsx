@@ -7,6 +7,7 @@ export interface Props {
   icon: React.ElementType;
   children?: React.ReactNode;
   "aria-label"?: string;
+  "data-strobi-cta"?: string;
 }
 
 export function SocialLink({
@@ -15,6 +16,7 @@ export function SocialLink({
   children,
   icon: Icon,
   "aria-label": ariaLabel,
+  "data-strobi-cta": strobiCta,
 }: Props) {
   return (
     <div className={`flex ${className || ""}`}>
@@ -23,6 +25,7 @@ export function SocialLink({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={ariaLabel}
+        data-strobi-cta={strobiCta}
         className="group flex text-sm font-medium transition"
       >
         <Icon

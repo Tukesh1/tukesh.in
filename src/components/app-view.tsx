@@ -5,6 +5,7 @@ import { useViewMode } from "./view-mode-provider";
 import { MachineView } from "./machine-view";
 import { Header } from "./header";
 import { Footer } from "./footer";
+import { StrobiCompanionLazy } from "./strobi/companion-lazy";
 
 export function AppView({ children }: { children: React.ReactNode }) {
   const { mode } = useViewMode();
@@ -22,6 +23,7 @@ export function AppView({ children }: { children: React.ReactNode }) {
       <Header />
       <div className="animate-fade-up flex-1 flex flex-col">{children}</div>
       <Footer />
+      <StrobiCompanionLazy />
     </main>
   );
 }

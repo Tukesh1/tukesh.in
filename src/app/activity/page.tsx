@@ -191,7 +191,10 @@ export default async function ActivityPage() {
       {/* Intro */}
       <Panel className="mt-6">
         <PanelHeader>
-          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p
+            data-strobi-cta="activity"
+            className="text-sm sm:text-base text-gray-600 dark:text-gray-400 leading-relaxed"
+          >
             A live log of what I&apos;m working on commits pushed, pull requests, problems
             solved, and quiet coding sessions in VS Code that never made it to GitHub.
             Auto-fetched from GitHub and WakaTime, synced every minute.
@@ -239,6 +242,7 @@ export default async function ActivityPage() {
                 href={moreUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-strobi-cta="github"
                 className="inline-flex items-center gap-1 font-mono text-xs text-neutral-500 dark:text-neutral-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
               >
                 See more on GitHub →

@@ -6,6 +6,7 @@ export function SignInWithGitHub({ className }: { className?: string }) {
     <form action={signInWithGitHubAction}>
       <button
         type="submit"
+        data-strobi-cta="signin"
         className={
           className ??
           "inline-flex items-center gap-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-dark-bg px-3 py-2 text-sm font-medium text-gray-800 dark:text-gray-100 hover:border-teal-500/50 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"

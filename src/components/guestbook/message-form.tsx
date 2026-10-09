@@ -6,6 +6,7 @@ import Image from "next/image";
 import { postMessageAction, type ActionResult } from "@/app/guestbook/actions";
 import { MAX_MESSAGE_LEN } from "@/lib/guestbook";
 import { cn } from "@/lib/utils";
+import { reactStrobi } from "@/components/strobi/reactions";
 
 type Props = {
   user: {
@@ -21,6 +22,7 @@ function SubmitButton({ disabled }: { disabled: boolean }) {
     <button
       type="submit"
       disabled={disabled || pending}
+      data-strobi-cta="sign"
       className="inline-flex items-center gap-1.5 rounded-md bg-gray-900 dark:bg-white px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-white dark:text-gray-900 transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
     >
       {pending ? "Signing…" : "Sign the wall"}
@@ -41,10 +43,14 @@ export function MessageForm({ user }: Props) {
   const empty = value.trim().length === 0;
 
   useEffect(() => {
-    if (state?.ok) {
+    if (!state) return
+    if (state.ok) {
       setValue("");
       formRef.current?.reset();
+      reactStrobi("celebrate");
+      return;
     }
+    reactStrobi("confused");
   }, [state]);
 
   return (

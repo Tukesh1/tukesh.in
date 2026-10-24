@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: `${siteMetadata.pages.activity.title} | ${siteMetadata.author}`,
     description: siteMetadata.pages.activity.description,
     images: [siteMetadata.socialBanner],
-    creator: "@sarifInsaan",
+    creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
   },
   alternates: { canonical: `${siteMetadata.siteUrl}/activity` },
 };

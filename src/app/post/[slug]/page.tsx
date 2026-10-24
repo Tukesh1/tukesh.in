@@ -61,7 +61,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title: metadata.title,
       description: metadata.description,
       images: [ogImage],
-      creator: "@sarifInsaan",
+      creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
     },
     alternates: {
       canonical: url,
@@ -226,7 +226,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <footer className="mt-16 pt-8 border-t border-gray-200 dark:border-gray-800">
           <div className="mb-10">
-            <SharePost title={post.metadata.title} url={url} twitterVia="sarifInsaan" />
+            <SharePost title={post.metadata.title} url={url} twitterVia={siteMetadata.handles.x} />
           </div>
 
           {(newerPost || olderPost) && (

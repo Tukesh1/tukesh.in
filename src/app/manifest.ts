@@ -4,7 +4,7 @@ import { siteMetadata } from '@/data/siteMetadata'
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: siteMetadata.title,
-    short_name: 'Tukesh',
+    short_name: siteMetadata.initials,
     description: siteMetadata.description,
     start_url: '/',
     display: 'standalone',

@@ -1,6 +1,6 @@
 # Customization Guide
 
-This portfolio is designed so almost every change happens in one folder: **`src/data/json/`**. You should never need to touch component code to personalise it.
+This portfolio is designed so **almost every change happens in one folder: `src/data/json/`**. You should never need to touch component code to personalise it.
 
 > **New to JSON?** JSON is just a configuration file format. No TypeScript or React knowledge is needed to edit these files.
 
@@ -10,29 +10,111 @@ This portfolio is designed so almost every change happens in one folder: **`src/
 
 File: [`src/data/json/site.json`](./src/data/json/site.json)
 
+This is the **single source of truth** for your entire portfolio. Update this file first.
+
 ```json
 {
   "title": "Your Name",
   "author": "Your Name",
+  "initials": "YN",
   "siteUrl": "https://yoursite.com",
+  "repoName": "your-repo-name",
   "socialBanner": "/assets/social-banner.png",
+  "avatarImage": "/assets/profile.png",
   "description": "Short tagline shown in <meta> and OG cards.",
   "keywords": ["Portfolio", "Developer", "React", "TypeScript"],
+
   "social": {
     "email": "you@example.com",
     "x": "https://x.com/your-handle",
     "linkedinLink": "https://www.linkedin.com/in/your-profile/",
     "githubLink": "https://github.com/your-username"
   },
+
   "handles": {
     "github": "your-username",
+    "x": "your-x-handle",
     "wakatime": "your-wakatime-id"
   },
+
+  "home": {
+    "typewriterPhrases": [
+      "Open Source Contributor",
+      "Software Engineer",
+      "Always learning, always shipping."
+    ],
+    "bio": "I'm a developer specializing in <strong>React and TypeScript</strong>.",
+    "currentWork": {
+      "name": "my-project",
+      "url": "https://github.com/you/my-project",
+      "description": "a short description of what you're building."
+    }
+  },
+
+  "profile": {
+    "jobTitle": "Software Engineer",
+    "pronouns": "their",
+    "location": "Your City, Country",
+    "country": "US",
+    "education": {
+      "name": "Your University",
+      "url": "https://youruni.edu"
+    },
+    "knowsAbout": ["React", "TypeScript", "Node.js"]
+  },
+
+  "analytics": {
+    "googleId": "G-XXXXXXXXXX",
+    "gscVerification": "your-google-search-console-token"
+  },
+
+  "dmca": {
+    "verificationMeta": "your-dmca-meta-token",
+    "badgeUrl": "//www.dmca.com/Protection/Status.aspx?ID=your-id"
+  },
+
+  "features": {
+    "activity": true,
+    "guestbook": true,
+    "blog": true
+  },
+
   "pages": { }
 }
 ```
 
-Everything that references your name, domain, or social handles reads from here.
+### Key fields explained
+
+| Field | Purpose |
+|---|---|
+| `initials` | 2-letter monogram shown in the footer badge |
+| `repoName` | Name of your GitHub repo — used in the header source-code link |
+| `avatarImage` | Path to your profile photo (under `public/`) |
+| `home.bio` | Bio paragraph on the homepage. Supports `<strong>` tags. |
+| `home.typewriterPhrases` | Rotating phrases under your name on the homepage |
+| `home.currentWork` | "Currently building X" blurb. Remove the key entirely to hide it. |
+| `profile.pronouns` | Used in the AI-readable `/llms.txt` profile text (`his`, `her`, `their`…) |
+| `profile.education` | Shown in JSON-LD structured data for SEO. Remove to hide. |
+| `analytics.googleId` | Your Google Analytics 4 Measurement ID. Remove to disable tracking. |
+| `analytics.gscVerification` | Google Search Console verification token. Remove if not needed. |
+| `dmca` | Remove the entire key to hide the DMCA badge from the footer. |
+| `handles.x` | Your X/Twitter handle (without `@`) — used in Twitter card `creator` meta |
+
+### Feature flags
+
+Setting a feature to `false` in `site.json` automatically:
+- Removes it from the **navigation bar**
+- Removes it from **sitemap.xml**
+
+```json
+"features": {
+  "activity": false,
+  "guestbook": false,
+  "blog": true
+}
+```
+
+> **Note**: Setting a feature to `false` only hides the nav link and removes it from the sitemap. Delete the corresponding `src/app/<page>/` folder to fully remove the route.
 
 ---
 
@@ -62,7 +144,7 @@ Each object in the array is a project:
 
 **Valid `category` values:** `"web"` · `"ai-ml"` · `"cli"` · `"agents"`
 
-- Set `"featured": true` on your top 2–3 projects — they appear in the home-page "Cool Stuff I'm Working On" section automatically.
+- Set `"featured": true` on your top 2–3 projects — they appear in the home-page "Shipping now" section automatically.
 - Omit `"end"` in `period` for ongoing projects.
 - `"thumbnail"` can be a local asset (`/assets/project/…`) or GitHub's OG image endpoint (`https://opengraph.githubassets.com/1/<user>/<repo>`).
 
@@ -193,6 +275,8 @@ Normal markdown and MDX below…
 
 Styling of headings, code blocks, tables, etc. lives in [`src/components/mdx-content.tsx`](./src/components/mdx-content.tsx).
 
+To disable the blog entirely, set `"features": { "blog": false }` in `site.json`.
+
 ---
 
 ## 10. Images & assets
@@ -200,7 +284,7 @@ Styling of headings, code blocks, tables, etc. lives in [`src/components/mdx-con
 Everything under `public/` is served from `/`. Replace:
 
 - `public/favicon.png`
-- `public/assets/profile.png` — hero avatar
+- `public/assets/profile.png` — hero avatar (update `avatarImage` in `site.json` to match)
 - `public/assets/social-banner.png` — 1200×630 OG card
 - `public/assets/overview.png` — README screenshot
 - `public/resume.pdf`
@@ -212,19 +296,16 @@ If you add a new external image domain, whitelist it in [`next.config.ts`](./nex
 
 ## 11. Navigation
 
-File: [`src/components/header.tsx`](./src/components/header.tsx)
+Navigation is **automatically generated** from the `features` flags in `site.json`.
 
-```ts
-const navItems = {
-  "/": { name: "home" },
-  "/about": { name: "about" },
-  "/projects": { name: "projects" },
-  "/post": { name: "post" },
-  "/activity": { name: "activity" },
-};
-```
+The base nav always includes: **home**, **about**, **projects**.
 
-Add/remove entries here; each key must match a folder in `src/app/`.
+Optional pages controlled by flags:
+- `"blog": false` → removes `/post` from nav
+- `"activity": false` → removes `/activity` from nav
+- `"guestbook": false` → removes `/guestbook` from nav
+
+If you want to add a completely new page, add it to the `BASE_NAV` object in [`src/components/header.tsx`](./src/components/header.tsx).
 
 ---
 
@@ -246,12 +327,39 @@ GITHUB_TOKEN=ghp_xxx          # optional; fine-grained, Contents + Metadata read
 WAKATIME_API_KEY=waka_xxx     # required for coding stats
 ```
 
-Revalidates every 60s (`export const revalidate = 60` in `src/app/activity/page.tsx`).
+Revalidates every 10 minutes (`export const revalidate = 600` in `src/app/activity/page.tsx`).
 
-If you don't want this page, delete `src/app/activity/`, remove the `"/activity"` entry from `header.tsx`, and drop the route from `src/app/sitemap.ts`.
+To disable: set `"features": { "activity": false }` in `site.json`.
 
 ---
 
 ## 14. Analytics
 
-Google Analytics is wired up in [`src/app/layout.tsx`](./src/app/layout.tsx) with ID `G-P36W5PCJC2`. Replace it with yours or delete the two `<Script>` tags.
+Set your Google Analytics 4 Measurement ID in `site.json`:
+
+```json
+"analytics": {
+  "googleId": "G-XXXXXXXXXX"
+}
+```
+
+Remove the `analytics` key entirely (or set `googleId` to an empty string) to disable tracking. No `<Script>` tags will be rendered.
+
+---
+
+## 15. Quick checklist for forkers
+
+After forking, here's all you need to update:
+
+- [ ] `src/data/json/site.json` — name, URLs, handles, bio, phrases, analytics
+- [ ] `src/data/json/projects.json` — your projects
+- [ ] `src/data/json/experience.json` — your work history
+- [ ] `src/data/json/skills.json` — your skills
+- [ ] `src/data/json/tools.json` — your tools
+- [ ] `src/data/json/socials.json` — your social links
+- [ ] `src/data/json/certifications.json` — your certs (or clear the array)
+- [ ] `public/assets/` — replace avatar, social banner, project thumbnails
+- [ ] `public/favicon.png` — your favicon
+- [ ] `public/resume.pdf` — your resume
+- [ ] `.env.local` — API keys for guestbook / activity (see `.env.example`)
+- [ ] `src/content/post/` — replace or delete sample blog posts

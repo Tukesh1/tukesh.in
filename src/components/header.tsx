@@ -4,14 +4,23 @@ import Link from "next/link";
 import { cn } from "../lib/utils";
 import { ThemeToggler } from "./theme-toggle";
 import React from "react";
+import { siteMetadata } from "@/data/siteMetadata";
 
-const navItems = {
+const BASE_NAV: Record<string, { name: string; feature?: keyof typeof siteMetadata.features }> = {
   "/": { name: "home" },
   "/about": { name: "about" },
   "/projects": { name: "projects" },
-  "/post": { name: "post" },
-  "/activity": { name: "activity" },
+  "/post": { name: "post", feature: "blog" },
+  "/activity": { name: "activity", feature: "activity" },
+  "/guestbook": { name: "guestbook", feature: "guestbook" },
 };
+
+// Filter nav items based on feature flags in site.json
+const navItems = Object.fromEntries(
+  Object.entries(BASE_NAV).filter(([, { feature }]) =>
+    !feature || siteMetadata.features[feature] !== false
+  )
+);
 
 export function Header() {
   const pathname = usePathname() || "/";

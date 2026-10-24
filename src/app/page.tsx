@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: siteMetadata.pages.home.title,
     description: siteMetadata.pages.home.description,
     images: [siteMetadata.socialBanner],
-    creator: "@sarifInsaan",
+    creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
   },
   alternates: {
     canonical: siteMetadata.siteUrl,
@@ -98,11 +98,7 @@ export default function Home() {
             </h1>
             <p className="text-sm text-balance text-muted-foreground dark:text-gray-400 select-none">
               <Typewriter
-                phrases={[
-                  "Open Source Contributor",
-                  "Software Engineer",
-                  "Always learning, always shipping.",
-                ]}
+                phrases={siteMetadata.home.typewriterPhrases}
               />
             </p>
           </div>
@@ -110,33 +106,31 @@ export default function Home() {
 
         <PanelContent className="lg:flex lg:flex-row lg:items-start gap-10">
           <div className="lg:w-2/3 text-center lg:text-left">
-            <p className="mt-2 text-gray-700 dark:text-gray-300">
-              I&apos;m a software developer specializing in building scalable web
-              applications with clean and intuitive user interfaces using{" "}
-              <strong>React, TypeScript, and Node.js</strong>.
-            </p>
-            <p className="mt-6 text-gray-700 dark:text-gray-300">
-              Currently, I&apos;m building{" "}
-              <a
-                href="https://github.com/Tukesh1/codexp-ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-blue-700 underline decoration-blue-700/40 underline-offset-2 hover:decoration-blue-700 dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:decoration-sky-400"
-              >
-                codexp-ai
-              </a>
-              {" "}- an AI-powered platform that explains, documents, and
-              visualizes source code, helping developers understand and onboard
-              to codebases faster. If you&apos;d like to collaborate, please{" "}
-              <a
-                href={`mailto:${siteMetadata.social.email}`}
-                className="border-b inline-block"
-              >
-                send me an email
-              </a>{" "}
-              or reach out on any of my social handles.
-            </p>
-            
+            <p
+              className="mt-2 text-gray-700 dark:text-gray-300"
+              dangerouslySetInnerHTML={{ __html: siteMetadata.home.bio }}
+            />
+            {siteMetadata.home.currentWork && (
+              <p className="mt-6 text-gray-700 dark:text-gray-300">
+                Currently, I&apos;m building{" "}
+                <a
+                  href={siteMetadata.home.currentWork.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-blue-700 underline decoration-blue-700/40 underline-offset-2 hover:decoration-blue-700 dark:text-sky-400 dark:decoration-sky-400/50 dark:hover:decoration-sky-400"
+                >
+                  {siteMetadata.home.currentWork.name}
+                </a>
+                {" "}- {siteMetadata.home.currentWork.description} If you&apos;d like to collaborate, please{" "}
+                <a
+                  href={`mailto:${siteMetadata.social.email}`}
+                  className="border-b inline-block"
+                >
+                  send me an email
+                </a>{" "}
+                or reach out on any of my social handles.
+              </p>
+            )}
 
             <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 mt-5">
               {SOCIALS.map((social) => (
@@ -162,7 +156,7 @@ export default function Home() {
           <div className="lg:w-1/3 flex justify-center lg:justify-end lg:mt-0 mt-6">
             <div className="relative w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 rounded-full overflow-hidden shadow-xl ring-1 ring-black/5 dark:ring-white/10 outline outline-2 outline-offset-2 outline-sky-500/30 dark:outline-sky-400/30 max-w-sm mx-auto">
               <Image
-                src="/assets/tukesh-profile.jpeg"
+                src={siteMetadata.avatarImage}
                 alt={`${siteMetadata.author} — avatar`}
                 priority
                 fetchPriority="high"

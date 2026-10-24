@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: siteMetadata.pages.about.title,
     description: siteMetadata.pages.about.description,
     images: [siteMetadata.socialBanner],
-    creator: "@sarifInsaan",
+    creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
   },
   alternates: {
     canonical: `${siteMetadata.siteUrl}/about`,

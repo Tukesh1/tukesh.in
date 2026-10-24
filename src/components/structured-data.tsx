@@ -14,7 +14,7 @@ export function StructuredData({ type }: StructuredDataProps) {
     url: siteMetadata.siteUrl,
     email: siteMetadata.social.email,
     image: `${siteMetadata.siteUrl}/assets/profile.jpg`,
-    jobTitle: "Software Engineer & AI Developer Tools",
+    jobTitle: siteMetadata.profile.jobTitle,
     description:
       "Frontend Developer & AI Engineer creating responsive web applications and AI-powered solutions",
     sameAs: [
@@ -22,36 +22,17 @@ export function StructuredData({ type }: StructuredDataProps) {
       siteMetadata.social.linkedinLink,
       siteMetadata.social.x,
     ],
-    knowsAbout: [
-      "AI Developer Tools",
-      "TypeScript",
-      "Go",
-      "React",
-      "Next.js",
-      "LLMs",
-      "GitHub Actions",
-      "CLI",
-      "Code Review",
-      "Node.js",
-      "JavaScript",
-      "Web Development",
-      "Full Stack Development",
-      "Software Engineering",
-      "MongoDB",
-      "Express.js",
-      "Next.js",
-      "Tailwind CSS",
-      "Python",
-      "Open Source",
-    ],
-    alumniOf: {
-      "@type": "EducationalOrganization",
-      name: "GL BAJAJ Institute of Technology & Management",
-      sameAs: "https://www.glbajaj.edu.in/",
-    },
+    knowsAbout: siteMetadata.profile.knowsAbout,
+    ...(siteMetadata.profile.education && {
+      alumniOf: {
+        "@type": "EducationalOrganization",
+        name: siteMetadata.profile.education.name,
+        sameAs: siteMetadata.profile.education.url,
+      },
+    }),
     address: {
       "@type": "PostalAddress",
-      addressCountry: "IN",
+      addressCountry: siteMetadata.profile.country,
     },
   };
 

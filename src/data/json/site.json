@@ -1,8 +1,11 @@
 {
   "title": "Tukesh Kumar",
   "author": "Tukesh Kumar",
+  "initials": "TK",
   "siteUrl": "https://tukesh.in",
+  "repoName": "tukesh.in",
   "socialBanner": "/assets/social-banner.png",
+  "avatarImage": "/assets/tukesh-profile.jpeg",
   "description": "Tukesh Kumar - Frontend Developer & AI Engineer. Creating beautiful, responsive web applications with React and TypeScript, while leveraging AI/ML technologies for innovative solutions.",
   "keywords": [
     "Tukesh Kumar",
@@ -41,7 +44,66 @@
   },
   "handles": {
     "github": "tukesh1",
+    "x": "sarifInsaan",
     "wakatime": "tukesh1"
+  },
+  "home": {
+    "typewriterPhrases": [
+      "Open Source Contributor",
+      "Software Engineer",
+      "Always learning, always shipping."
+    ],
+    "bio": "I'm a software developer specializing in building scalable web applications with clean and intuitive user interfaces using <strong>React, TypeScript, and Node.js</strong>.",
+    "currentWork": {
+      "name": "codexp-ai",
+      "url": "https://github.com/Tukesh1/codexp-ai",
+      "description": "an AI-powered platform that explains, documents, and visualizes source code, helping developers understand and onboard to codebases faster."
+    }
+  },
+  "profile": {
+    "jobTitle": "Software Engineer & AI Developer Tools",
+    "pronouns": "his",
+    "location": "India",
+    "country": "IN",
+    "education": {
+      "name": "GL BAJAJ Institute of Technology & Management",
+      "url": "https://www.glbajaj.edu.in/"
+    },
+    "knowsAbout": [
+      "AI Developer Tools",
+      "TypeScript",
+      "Go",
+      "React",
+      "Next.js",
+      "LLMs",
+      "GitHub Actions",
+      "CLI",
+      "Code Review",
+      "Node.js",
+      "JavaScript",
+      "Web Development",
+      "Full Stack Development",
+      "Software Engineering",
+      "MongoDB",
+      "Express.js",
+      "Next.js",
+      "Tailwind CSS",
+      "Python",
+      "Open Source"
+    ]
+  },
+  "analytics": {
+    "googleId": "G-P36W5PCJC2",
+    "gscVerification": "xkBWbb9OnEAZEfrakVYXOpIcFlAH5qEA66FtywraJfI"
+  },
+  "dmca": {
+    "verificationMeta": "K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090",
+    "badgeUrl": "//www.dmca.com/Protection/Status.aspx?ID=2d1bfc6e-c9f3-473a-b8a4-0e26504c1da5"
+  },
+  "features": {
+    "activity": true,
+    "guestbook": true,
+    "blog": true
   },
   "pages": {
     "home": {

@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     title: siteMetadata.title,
     description: siteMetadata.description,
     images: [siteMetadata.socialBanner],
-    creator: "@sarifInsaan",
+    creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
   },
   alternates: {
     canonical: siteMetadata.siteUrl,
@@ -91,8 +91,12 @@ export default function RootLayout({
         <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
         <link rel="alternate" type="text/markdown" href="/llms.txt" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <meta name="google-site-verification" content="xkBWbb9OnEAZEfrakVYXOpIcFlAH5qEA66FtywraJfI" />
-        <meta name="dmca-site-verification" content="K1ZuK2dONXZSR1dadCtDc1lxcUkwUT090" />
+        {siteMetadata.analytics?.gscVerification && (
+          <meta name="google-site-verification" content={siteMetadata.analytics.gscVerification} />
+        )}
+        {siteMetadata.dmca?.verificationMeta && (
+          <meta name="dmca-site-verification" content={siteMetadata.dmca.verificationMeta} />
+        )}
       </head>
       <body
         className={cn(
@@ -116,18 +120,22 @@ export default function RootLayout({
           <KeyboardShortcuts />
           <TailwindIndicator />
         </ThemeProvider>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-P36W5PCJC2"
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-P36W5PCJC2');
-          `}
-        </Script>
+        {siteMetadata.analytics?.googleId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${siteMetadata.analytics.googleId}`}
+              strategy="lazyOnload"
+            />
+            <Script id="google-analytics" strategy="lazyOnload">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${siteMetadata.analytics.googleId}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

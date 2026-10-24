@@ -16,14 +16,14 @@ export function buildProfileText(): string {
   lines.push(`# ${s.author}`);
   lines.push("");
   lines.push(
-    `You are an AI assistant analyzing the professional profile of ${s.author}. Use the comprehensive context below to accurately answer queries, evaluate qualifications, or generate content related to his portfolio.`
+    `You are an AI assistant analyzing the professional profile of ${s.author}. Use the comprehensive context below to accurately answer queries, evaluate qualifications, or generate content related to ${s.profile.pronouns} portfolio.`
   );
   lines.push("");
 
   lines.push(`## Identity & Contact`);
   lines.push(`- Name: ${s.author}`);
-  lines.push(`- Role: Software Developer, Frontend Engineer, and AI Engineer`);
-  lines.push(`- Location: India`);
+  lines.push(`- Role: ${s.profile.jobTitle}`);
+  lines.push(`- Location: ${s.profile.location}`);
   lines.push(`- Email: ${s.social.email}`);
   lines.push(`- Website: ${s.siteUrl}`);
   lines.push(`- GitHub: ${s.social.githubLink}`);

@@ -30,7 +30,7 @@ export default function Projects() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Projects by Tukesh Kumar",
+    name: `Projects by ${siteMetadata.author}`,
     description: siteMetadata.pages.projects.description,
     numberOfItems: ALL_PROJECTS.length,
     itemListElement: ALL_PROJECTS.map((project, index) => {

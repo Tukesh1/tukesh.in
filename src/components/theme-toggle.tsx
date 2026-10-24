@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { siteMetadata } from "@/data/siteMetadata";
 
-const REPO_URL = `https://github.com/${siteMetadata.handles.github}/tukesh.in`;
+const REPO_URL = `https://github.com/${siteMetadata.handles.github}/${siteMetadata.repoName}`;
 
 export function ThemeToggler() {
   const { theme, setTheme } = useTheme();

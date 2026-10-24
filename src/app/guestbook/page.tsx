@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     title: `${pageTitle} | ${siteMetadata.author}`,
     description: pageDescription,
     images: [siteMetadata.socialBanner],
-    creator: "@sarifInsaan",
+    creator: siteMetadata.handles.x ? `@${siteMetadata.handles.x}` : undefined,
   },
   alternates: { canonical: `${siteMetadata.siteUrl}/guestbook` },
 };

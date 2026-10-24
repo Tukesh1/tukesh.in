@@ -12,7 +12,7 @@ export function Footer() {
           title={siteMetadata.author}
           className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-sm"
         >
-          TK
+          {siteMetadata.initials}
         </span>
 
         <div className="text-center text-sm text-gray-500 dark:text-gray-400">
@@ -33,15 +33,19 @@ export function Footer() {
           <a href="/sitemap.xml" className="hover:underline">
             sitemap.xml
           </a>
-          <span className="hidden md:inline-block text-gray-300 dark:text-gray-700">•</span>
-          <a
-            href="//www.dmca.com/Protection/Status.aspx?ID=2d1bfc6e-c9f3-473a-b8a4-0e26504c1da5"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
-          >
-            DMCA
-          </a>
+          {siteMetadata.dmca?.badgeUrl && (
+            <>
+              <span className="hidden md:inline-block text-gray-300 dark:text-gray-700">•</span>
+              <a
+                href={siteMetadata.dmca.badgeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                DMCA
+              </a>
+            </>
+          )}
         </div>
       </div>
     </footer>
